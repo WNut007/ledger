@@ -41,7 +41,7 @@ class WalletApiController extends Controller
     public function getWallet(Request $request): WalletResource
     {
         $subject = $this->resolveSubject($request);
-        $wallet  = $this->walletService->getOrCreateWallet($subject, $request->input('currency', 'USD'));
+        $wallet  = $this->walletService->getOrCreateWallet($subject, $request->input('currency'));
 
         return new WalletResource($wallet);
     }

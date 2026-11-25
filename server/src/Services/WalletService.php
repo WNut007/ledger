@@ -55,16 +55,29 @@ class WalletService
      * a wallet for a subject and don't know if one exists yet.
      *
      * @param Model  $subject  Any Eloquent model with a uuid and company_uuid
-     * @param string $currency ISO 4217 currency code (default: USD)
+     * @param string|null $currency ISO 4217 currency code (default: the company's currency)
      */
-    public function getOrCreateWallet(Model $subject, string $currency = 'USD'): Wallet
+    public function getOrCreateWallet(Model $subject, ?string $currency = null): Wallet
     {
+        $companyUuid = $subject->company_uuid ?? session('company');
+
         return Wallet::forSubject(
             subjectUuid: $subject->uuid,
             subjectType: get_class($subject),
-            companyUuid: $subject->company_uuid ?? session('company'),
-            currency: $currency,
+            companyUuid: $companyUuid,
+            currency: $currency ?: $this->companyCurrency($companyUuid),
         );
+    }
+
+    /**
+     * The currency new wallets get when none is given: the company's, then the configured
+     * default. (Wallets were created in USD for a THB company.)
+     */
+    protected function companyCurrency(?string $companyUuid): string
+    {
+        $currency = $companyUuid ? Company::where('uuid', $companyUuid)->value('currency') : null;
+
+        return $currency ?: config('ledger.default_currency', 'USD');
     }
 
     /**
@@ -75,7 +88,7 @@ class WalletService
      *
      * @return array<Wallet>
      */
-    public function provisionBatch(iterable $subjects, string $currency = 'USD'): array
+    public function provisionBatch(iterable $subjects, ?string $currency = null): array
     {
         $wallets = [];
         foreach ($subjects as $subject) {
@@ -499,7 +512,7 @@ class WalletService
     public function creditEarnings(
         Model $driver,
         int $amount,
-        string $currency = 'USD',
+        ?string $currency = null,
         string $description = '',
         array $options = [],
     ): Transaction {
@@ -535,7 +548,7 @@ class WalletService
         string $description = '',
         array $options = [],
     ): Transaction {
-        $wallet = $this->getOrCreateWallet($driver, $options['currency'] ?? 'USD');
+        $wallet = $this->getOrCreateWallet($driver, $options['currency'] ?? null);
 
         return $this->withdraw(
             wallet: $wallet,
