@@ -6,6 +6,7 @@ import { task } from 'ember-concurrency';
 import copyToClipboard from '@fleetbase/ember-core/utils/copy-to-clipboard';
 
 export default class GatewayFormComponent extends Component {
+    @service intl;
     @service fetch;
     @service notifications;
 
@@ -22,13 +23,13 @@ export default class GatewayFormComponent extends Component {
 
     get setupSteps() {
         const steps = [
-            { icon: 'key', label: 'Credentials', complete: this.hasRequiredConfig },
-            { icon: 'route', label: 'Routing', complete: Boolean(this.args.resource?.environment && this.args.resource?.status) },
-            { icon: 'circle-check', label: 'Review', complete: Boolean(this.args.resource?.name && this.args.resource?.driver) },
+            { icon: 'key', label: this.intl.t('ledger-ui.s.credentials'), complete: this.hasRequiredConfig },
+            { icon: 'route', label: this.intl.t('ledger-ui.s.routing'), complete: Boolean(this.args.resource?.environment && this.args.resource?.status) },
+            { icon: 'circle-check', label: this.intl.t('ledger-ui.s.review'), complete: Boolean(this.args.resource?.name && this.args.resource?.driver) },
         ];
 
         if (this.canSelectDriver) {
-            steps.unshift({ icon: 'plug', label: 'Gateway', complete: Boolean(this.selectedDriver) });
+            steps.unshift({ icon: 'plug', label: this.intl.t('ledger-ui.s.gateway'), complete: Boolean(this.selectedDriver) });
         }
 
         return steps.map((step, index) => ({
@@ -143,7 +144,7 @@ export default class GatewayFormComponent extends Component {
                 }
             }
         } catch (err) {
-            this.notifications.warning('Could not load available payment drivers.');
+            this.notifications.warning(this.intl.t('ledger-ui.s.could-not-load-available-payment-drivers'));
         }
     }
 
@@ -224,7 +225,7 @@ export default class GatewayFormComponent extends Component {
 
     @task *testCredentials() {
         if (!this.canTestCredentials) {
-            this.notifications.info('Choose a gateway and complete the required credentials before testing.');
+            this.notifications.info(this.intl.t('ledger-ui.s.choose-a-gateway-and-complete-the-required-crede'));
             return;
         }
 
@@ -277,12 +278,12 @@ export default class GatewayFormComponent extends Component {
     @action copyWebhookUrl() {
         const url = this.args.resource?.system_webhook_url ?? this.args.resource?.webhook_url;
         if (!url) {
-            return this.notifications.warning('No webhook URL is available yet.');
+            return this.notifications.warning(this.intl.t('ledger-ui.s.no-webhook-url-is-available-yet'));
         }
 
         copyToClipboard(url)
-            .then(() => this.notifications.success('Webhook URL copied.'))
-            .catch(() => this.notifications.error('Unable to copy webhook URL.'));
+            .then(() => this.notifications.success(this.intl.t('ledger-ui.s.webhook-url-copied')))
+            .catch(() => this.notifications.error(this.intl.t('ledger-ui.s.unable-to-copy-webhook-url')));
     }
 
     driverCategory(code) {

@@ -10,8 +10,8 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
 
     get tabs() {
         return [
-            { label: 'Overview', route: 'payments.wallets.index.details.index' },
-            { label: 'Transactions', route: 'payments.wallets.index.details.transactions' },
+            { label: this.intl.t('ledger-ui.s.overview'), route: 'payments.wallets.index.details.index' },
+            { label: this.intl.t('ledger-ui.s.transactions'), route: 'payments.wallets.index.details.transactions' },
         ];
     }
 
@@ -20,8 +20,8 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
         const frozen = wallet?.is_frozen;
 
         return [
-            { id: 'top-up-wallet', label: 'Add Funds', icon: 'plus-circle', type: 'primary', helpText: 'Add funds to this wallet balance.', onClick: this.topUpWallet },
-            { id: 'transfer-funds', label: 'Transfer', icon: 'exchange-alt', helpText: 'Transfer funds from this wallet to another wallet.', onClick: this.transferFunds },
+            { id: 'top-up-wallet', label: this.intl.t('ledger-ui.s.add-funds'), icon: 'plus-circle', type: 'primary', helpText: this.intl.t('ledger-ui.s.add-funds-to-this-wallet-balance'), onClick: this.topUpWallet },
+            { id: 'transfer-funds', label: this.intl.t('ledger-ui.s.transfer'), icon: 'exchange-alt', helpText: this.intl.t('ledger-ui.s.transfer-funds-from-this-wallet-to-another-walle'), onClick: this.transferFunds },
             {
                 id: 'toggle-freeze',
                 label: frozen ? 'Unfreeze' : 'Freeze',
@@ -37,16 +37,16 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
         const wallet = this.model;
 
         this.modalsManager.confirm({
-            title: `Freeze ${wallet.name}?`,
-            body: 'Freezing this wallet will block all debit transactions. Credits will still be accepted. You can unfreeze it at any time.',
-            acceptButtonText: 'Freeze Wallet',
+            title: this.intl.t('ledger-ui.s.freeze-wallet-title', { name: wallet.name }),
+            body: this.intl.t('ledger-ui.s.freeze-wallet-body'),
+            acceptButtonText: this.intl.t('ledger-ui.s.freeze-wallet'),
             acceptButtonIcon: 'lock',
             acceptButtonScheme: 'danger',
             confirm: async (modal) => {
                 modal.startLoading();
                 try {
                     await this.fetch.post(`wallets/${wallet.id}/freeze`, {}, { namespace: 'ledger/int/v1' });
-                    this.notifications.success(`${wallet.name} has been frozen.`);
+                    this.notifications.success(this.intl.t('ledger-ui.s.wallet-frozen-name', { name: wallet.name }));
                     await wallet.reload();
                     modal.done();
                 } catch (error) {
@@ -61,15 +61,15 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
         const wallet = this.model;
 
         this.modalsManager.confirm({
-            title: `Unfreeze ${wallet.name}?`,
-            body: 'Unfreezing this wallet will restore normal operation and allow debit transactions.',
-            acceptButtonText: 'Unfreeze Wallet',
+            title: this.intl.t('ledger-ui.s.unfreeze-wallet-title', { name: wallet.name }),
+            body: this.intl.t('ledger-ui.s.unfreeze-wallet-body'),
+            acceptButtonText: this.intl.t('ledger-ui.s.unfreeze-wallet'),
             acceptButtonIcon: 'unlock',
             confirm: async (modal) => {
                 modal.startLoading();
                 try {
                     await this.fetch.post(`wallets/${wallet.id}/unfreeze`, {}, { namespace: 'ledger/int/v1' });
-                    this.notifications.success(`${wallet.name} has been unfrozen.`);
+                    this.notifications.success(this.intl.t('ledger-ui.s.wallet-unfrozen-name', { name: wallet.name }));
                     await wallet.reload();
                     modal.done();
                 } catch (error) {
@@ -84,8 +84,8 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
         const wallet = this.model;
 
         const options = {
-            title: `Add Funds — ${wallet.name}`,
-            acceptButtonText: 'Add Funds',
+            title: this.intl.t('ledger-ui.s.add-funds-title', { name: wallet.name }),
+            acceptButtonText: this.intl.t('ledger-ui.s.add-funds'),
             acceptButtonIcon: 'plus-circle',
             wallet,
             amount: 0,
@@ -98,13 +98,13 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
             },
             confirm: async (modal) => {
                 if (!options.amount || options.amount <= 0) {
-                    this.notifications.warning('Please enter a valid amount greater than zero.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.please-enter-a-valid-amount-greater-than-zero'));
                     return;
                 }
                 modal.startLoading();
                 try {
                     await this.fetch.post(`wallets/${wallet.id}/credit`, { amount: options.amount, description: options.description || 'Manual top-up' }, { namespace: 'ledger/int/v1' });
-                    this.notifications.success(`Funds added to ${wallet.name}.`);
+                    this.notifications.success(this.intl.t('ledger-ui.s.funds-added-to', { name: wallet.name }));
                     await wallet.reload();
                     modal.done();
                 } catch (error) {
@@ -121,7 +121,7 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
         const wallet = this.model;
 
         const options = {
-            title: `Transfer Funds — ${wallet.name}`,
+            title: this.intl.t('ledger-ui.s.transfer-funds-title', { name: wallet.name }),
             acceptButtonText: 'Transfer',
             acceptButtonIcon: 'exchange-alt',
             wallet,
@@ -139,15 +139,15 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
             },
             confirm: async (modal) => {
                 if (!options.toWallet) {
-                    this.notifications.warning('Please select a destination wallet.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.please-select-a-destination-wallet'));
                     return;
                 }
                 if (!options.amount || options.amount <= 0) {
-                    this.notifications.warning('Please enter a valid amount greater than zero.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.please-enter-a-valid-amount-greater-than-zero'));
                     return;
                 }
                 if (options.toWallet.id === wallet.id) {
-                    this.notifications.warning('Cannot transfer funds to the same wallet.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.cannot-transfer-funds-to-the-same-wallet'));
                     return;
                 }
                 modal.startLoading();
@@ -161,7 +161,7 @@ export default class PaymentsWalletsIndexDetailsController extends Controller {
                         },
                         { namespace: 'ledger/int/v1' }
                     );
-                    this.notifications.success(`Funds transferred to ${options.toWallet.name}.`);
+                    this.notifications.success(this.intl.t('ledger-ui.s.funds-transferred-to', { name: options.toWallet.name }));
                     await wallet.reload();
                     modal.done();
                 } catch (error) {

@@ -7,6 +7,8 @@ import formatCurrency from '@fleetbase/ember-ui/utils/format-currency';
 export default class WidgetLedgerKpiTileComponent extends Component {
     @service fetch;
     @service ledgerDashboard;
+    @service currentUser;
+    @service intl;
 
     @tracked data = null;
     @tracked error = null;
@@ -27,13 +29,13 @@ export default class WidgetLedgerKpiTileComponent extends Component {
 
     get formattedValue() {
         if (this.metric.multi_currency) {
-            return 'Multi';
+            return this.intl.t('ledger-ui.s.multi-currency');
         }
 
         const value = this.metric.value ?? 0;
 
         if (this.metric.format === 'money') {
-            return formatCurrency(value, this.metric.currency ?? this.data?.currency ?? 'USD');
+            return formatCurrency(value, this.metric.currency ?? this.data?.currency ?? this.currentUser.company?.currency ?? 'USD');
         }
 
         if (this.metric.format === 'percent') {
@@ -46,7 +48,7 @@ export default class WidgetLedgerKpiTileComponent extends Component {
     get deltaText() {
         const delta = this.metric.delta_percent;
         if (typeof delta !== 'number') {
-            return 'Current';
+            return this.intl.t('ledger-ui.s.current');
         }
 
         return `${delta > 0 ? '+' : ''}${delta}%`;
@@ -77,10 +79,10 @@ export default class WidgetLedgerKpiTileComponent extends Component {
 
     get footnote() {
         if (this.metric.multi_currency) {
-            return 'Grouped by currency';
+            return this.intl.t('ledger-ui.s.grouped-by-currency');
         }
 
-        return this.args.period ?? 'vs previous period';
+        return this.args.period ?? this.intl.t('ledger-ui.s.vs-previous-period');
     }
 
     @task *load() {

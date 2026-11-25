@@ -8,29 +8,30 @@ const DRIVER_COPY = {
         name: 'GNU Taler',
         icon: 'wallet',
         type: 'Wallet payment',
-        description: 'Privacy-preserving wallet payments, QR checkout, webhook confirmation, refunds, and settlement verification.',
+        descriptionKey: 'ledger-ui.s.privacy-preserving-wallet-payments-qr-checkout-w',
     },
     stripe: {
         name: 'Stripe',
         icon: 'credit-card',
         type: 'Cards and wallets',
-        description: 'Card and digital wallet processing with webhook confirmation and refund support.',
+        descriptionKey: 'ledger-ui.s.card-and-digital-wallet-processing-with-webhook',
     },
     cash: {
-        name: 'Cash',
+        nameKey: 'ledger-ui.s.cash',
         icon: 'money-bill-wave',
         type: 'Manual payment',
-        description: 'Record offline or in-person payments without external webhook provisioning.',
+        descriptionKey: 'ledger-ui.s.record-offline-or-in-person-payments-without-ext',
     },
     qpay: {
         name: 'QPay',
         icon: 'qrcode',
         type: 'Regional payment',
-        description: 'Regional gateway support for QR and local payment collection flows.',
+        descriptionKey: 'ledger-ui.s.regional-gateway-support-for-qr-and-local-paymen',
     },
 };
 
 export default class GatewayHubComponent extends Component {
+    @service intl;
     @service gatewayActions;
     @tracked table;
 
@@ -63,10 +64,10 @@ export default class GatewayHubComponent extends Component {
 
             return {
                 code,
-                name: manifest.name ?? copy.name,
+                name: manifest.name ?? (copy.nameKey ? this.intl.t(copy.nameKey) : copy.name),
                 icon: copy.icon,
                 type: copy.type,
-                description: copy.description,
+                description: copy.descriptionKey ? this.intl.t(copy.descriptionKey) : copy.description,
                 capabilities: manifest.capabilities ?? [],
                 configuredCount: configured.length,
                 activeCount: active.length,
@@ -87,28 +88,28 @@ export default class GatewayHubComponent extends Component {
     get statusTiles() {
         return [
             {
-                label: 'Active gateways',
+                label: this.intl.t('ledger-ui.s.active-gateways'),
                 value: this.summary.active_gateways ?? 0,
                 caption: 'Ready to collect payments',
                 icon: 'plug',
                 accentClass: Number(this.summary.active_gateways ?? 0) > 0 ? 'ledger-gateway-kpi-accent-green' : 'ledger-gateway-kpi-accent-blue',
             },
             {
-                label: 'Live ready',
+                label: this.intl.t('ledger-ui.s.live-ready'),
                 value: this.summary.live_gateways ?? 0,
                 caption: 'Production connections',
                 icon: 'bolt',
                 accentClass: Number(this.summary.live_gateways ?? 0) > 0 ? 'ledger-gateway-kpi-accent-blue' : 'ledger-gateway-kpi-accent-slate',
             },
             {
-                label: 'Webhook issues',
+                label: this.intl.t('ledger-ui.s.webhook-issues'),
                 value: this.warningCount,
                 caption: this.warningCount > 0 ? 'Need provisioning review' : 'No open warnings',
                 icon: 'link',
                 accentClass: this.warningCount > 0 ? 'ledger-gateway-kpi-accent-amber' : 'ledger-gateway-kpi-accent-green',
             },
             {
-                label: 'Sandbox',
+                label: this.intl.t('ledger-ui.s.sandbox'),
                 value: this.summary.sandbox_gateways ?? 0,
                 caption: 'Testing connections',
                 icon: 'flask',

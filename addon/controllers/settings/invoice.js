@@ -6,6 +6,7 @@ import { task } from 'ember-concurrency';
 import getCurrency from '@fleetbase/ember-ui/utils/get-currency';
 
 export default class SettingsInvoiceController extends Controller {
+    @service intl;
     @service fetch;
     @service notifications;
     @service currentUser;
@@ -29,14 +30,14 @@ export default class SettingsInvoiceController extends Controller {
     currencies = getCurrency();
 
     paymentTermsOptions = [
-        { label: 'Due on Receipt', value: 0 },
-        { label: 'Net 7', value: 7 },
-        { label: 'Net 14', value: 14 },
-        { label: 'Net 15', value: 15 },
-        { label: 'Net 30', value: 30 },
-        { label: 'Net 45', value: 45 },
-        { label: 'Net 60', value: 60 },
-        { label: 'Net 90', value: 90 },
+        { label: this.intl.t('ledger-ui.s.due-on-receipt'), value: 0 },
+        { label: this.intl.t('ledger-ui.s.net-7'), value: 7 },
+        { label: this.intl.t('ledger-ui.s.net-14'), value: 14 },
+        { label: this.intl.t('ledger-ui.s.net-15'), value: 15 },
+        { label: this.intl.t('ledger-ui.s.net-30'), value: 30 },
+        { label: this.intl.t('ledger-ui.s.net-45'), value: 45 },
+        { label: this.intl.t('ledger-ui.s.net-60'), value: 60 },
+        { label: this.intl.t('ledger-ui.s.net-90'), value: 90 },
     ];
 
     constructor() {
@@ -127,7 +128,7 @@ export default class SettingsInvoiceController extends Controller {
                 },
                 { namespace: 'ledger/int/v1' }
             );
-            this.notifications.success('Invoice settings saved.');
+            this.notifications.success(this.intl.t('ledger-ui.s.invoice-settings-saved'));
         } catch (error) {
             this.notifications.serverError(error);
         }

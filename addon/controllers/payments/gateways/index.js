@@ -83,7 +83,7 @@ export default class PaymentsGatewaysIndexController extends Controller {
                 },
                 {
                     id: 'driver',
-                    label: this.intl.t('column.driver'),
+                    label: this.intl.t('ledger-ui.s.gateway-driver'),
                     valuePath: 'driver',
                     cellComponent: 'table/cell/base',
                     humanize: true,
@@ -110,8 +110,8 @@ export default class PaymentsGatewaysIndexController extends Controller {
                     filterOptionLabel: 'label',
                     filterOptionValue: 'value',
                     filterOptions: [
-                        { label: 'Live', value: 'live' },
-                        { label: 'Sandbox', value: 'sandbox' },
+                        { label: this.intl.t('ledger-ui.s.live'), value: 'live' },
+                        { label: this.intl.t('ledger-ui.s.sandbox'), value: 'sandbox' },
                     ],
                 },
                 {
@@ -128,8 +128,8 @@ export default class PaymentsGatewaysIndexController extends Controller {
                     filterOptionLabel: 'label',
                     filterOptionValue: 'value',
                     filterOptions: [
-                        { label: 'Active', value: 'active' },
-                        { label: 'Inactive', value: 'inactive' },
+                        { label: this.intl.t('ledger-ui.s.active'), value: 'active' },
+                        { label: this.intl.t('ledger-ui.s.inactive'), value: 'inactive' },
                     ],
                 },
                 {

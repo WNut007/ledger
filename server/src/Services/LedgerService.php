@@ -991,7 +991,19 @@ class LedgerService
             }
         }
 
-        return 'USD';
+        return $this->companyCurrency();
+    }
+
+    /**
+     * The organization's currency, for totals that have no record to take one from (an empty
+     * ledger showed $0.00 to a THB company).
+     */
+    protected function companyCurrency(): string
+    {
+        $companyUuid = session('company');
+        $currency    = $companyUuid ? \Fleetbase\Models\Company::where('uuid', $companyUuid)->value('currency') : null;
+
+        return $currency ?: config('ledger.default_currency', 'USD');
     }
 
     // =========================================================================

@@ -32,6 +32,7 @@ import { task } from 'ember-concurrency';
  * inline or via services that are in the shared hostServices list.
  */
 export default class OrderInvoiceComponent extends Component {
+    @service intl;
     @service store;
     @service fetch;
     @service hostRouter;

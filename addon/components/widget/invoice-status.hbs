@@ -1,8 +1,8 @@
 <div class="ledger-dashboard-widget flex h-full flex-col rounded-md border bg-white shadow-sm dark:bg-gray-800" ...attributes>
     <div class="ledger-widget-header">
         <div class="min-w-0">
-            <div class="ledger-widget-title">Invoice Pipeline</div>
-            <div class="ledger-widget-subtitle">{{or this.data.total_count 0}} invoices · open balance tracked by status</div>
+            <div class="ledger-widget-title">{{t "ledger-ui.s.invoice-pipeline"}}</div>
+            <div class="ledger-widget-subtitle">{{or this.data.total_count 0}} {{t "ledger-ui.s.invoices-open-balance-tracked-by-status"}}</div>
         </div>
         <button type="button" class="ledger-icon-button" {{on "click" (perform this.load)}}><FaIcon @icon="rotate" /></button>
     </div>
@@ -27,7 +27,7 @@
                 {{/each}}
             </div>
         {{else}}
-            <div class="ledger-widget-empty">No invoices yet.</div>
+            <div class="ledger-widget-empty">{{t "ledger-ui.s.no-invoices-yet"}}</div>
         {{/if}}
     </div>
 </div>

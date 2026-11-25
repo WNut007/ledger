@@ -37,6 +37,18 @@ class TransactionFilter extends Filter
         });
     }
 
+    /**
+     * Hide zero-amount transactions (every dispatched order records a 0.00 "Dispatch order"
+     * transaction, which buried the real ones). The console sends this unless the user asks
+     * to see them.
+     */
+    public function hideZero($hideZero): void
+    {
+        if (filter_var($hideZero, FILTER_VALIDATE_BOOLEAN)) {
+            $this->builder->where('amount', '!=', 0);
+        }
+    }
+
     public function type(?string $type): void
     {
         $this->builder->where('type', $type);

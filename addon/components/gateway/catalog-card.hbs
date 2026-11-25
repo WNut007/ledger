@@ -23,7 +23,7 @@
         {{#each @driver.capabilities as |capability|}}
             <Badge @color="blue">{{capability}}</Badge>
         {{else}}
-            <Badge @color="gray">Manual</Badge>
+            <Badge @color="gray">{{t "ledger-ui.s.manual"}}</Badge>
         {{/each}}
     </div>
 

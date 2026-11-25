@@ -75,7 +75,7 @@ export default class BillingInvoiceTemplatesIndexNewController extends Controlle
             // the app (e.g. the index list) reflects the new template.
             const saved = this.store.push(this.store.normalize('template', response.template ?? response));
 
-            this.notifications.success(`Invoice template "${saved.name}" created successfully.`);
+            this.notifications.success(this.intl.t('ledger-ui.s.template-created', { name: saved.name }));
             yield this.hostRouter.transitionTo('console.ledger.billing.invoice-templates.index');
         } catch (err) {
             this.notifications.serverError(err);

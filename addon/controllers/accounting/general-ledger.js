@@ -6,15 +6,16 @@ import { isArray } from '@ember/array';
 import { task } from 'ember-concurrency';
 
 const ACCOUNT_TYPES = [
-    { label: 'All Types', value: null },
-    { label: 'Asset', value: 'asset' },
-    { label: 'Liability', value: 'liability' },
-    { label: 'Equity', value: 'equity' },
-    { label: 'Revenue', value: 'revenue' },
-    { label: 'Expense', value: 'expense' },
+    { labelKey: 'ledger-ui.s.all-types', value: null },
+    { labelKey: 'ledger-ui.s.asset', value: 'asset' },
+    { labelKey: 'ledger-ui.s.liability', value: 'liability' },
+    { labelKey: 'ledger-ui.s.equity', value: 'equity' },
+    { labelKey: 'ledger-ui.s.revenue', value: 'revenue' },
+    { labelKey: 'ledger-ui.s.expense', value: 'expense' },
 ];
 
 export default class AccountingGeneralLedgerController extends Controller {
+    @service intl;
     @service fetch;
 
     @tracked accounts = [];
@@ -30,11 +31,11 @@ export default class AccountingGeneralLedgerController extends Controller {
     @tracked expandedMap = {};
 
     get accountTypes() {
-        return ACCOUNT_TYPES;
+        return ACCOUNT_TYPES.map((t) => ({ label: this.intl.t(t.labelKey), value: t.value }));
     }
 
     get selectedType() {
-        return ACCOUNT_TYPES.find((t) => t.value === this.type) ?? ACCOUNT_TYPES[0];
+        return this.accountTypes.find((t) => t.value === this.type) ?? this.accountTypes[0];
     }
 
     get allExpanded() {

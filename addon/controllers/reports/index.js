@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default class ReportsIndexController extends Controller {
+    @service intl;
     @service fetch;
 
     @tracked activeReport = 'balance-sheet';
@@ -15,10 +16,10 @@ export default class ReportsIndexController extends Controller {
     @tracked asOf = null;
 
     reportTabs = [
-        { id: 'balance-sheet', label: 'Balance Sheet' },
-        { id: 'income-statement', label: 'Income Statement' },
-        { id: 'cash-flow', label: 'Cash Flow' },
-        { id: 'ar-aging', label: 'AR Aging' },
+        { id: 'balance-sheet', label: this.intl.t('ledger-ui.s.balance-sheet') },
+        { id: 'income-statement', label: this.intl.t('ledger-ui.s.income-statement') },
+        { id: 'cash-flow', label: this.intl.t('ledger-ui.s.cash-flow') },
+        { id: 'ar-aging', label: this.intl.t('ledger-ui.s.ar-aging') },
     ];
 
     @task *loadReport() {

@@ -6,6 +6,7 @@ import { task } from 'ember-concurrency';
 import copyToClipboard from '@fleetbase/ember-core/utils/copy-to-clipboard';
 
 export default class GatewayDetailsComponent extends Component {
+    @service intl;
     @service fetch;
     @service notifications;
     @service modalsManager;
@@ -156,7 +157,7 @@ export default class GatewayDetailsComponent extends Component {
     get readinessItems() {
         return [
             {
-                label: 'Connection',
+                label: this.intl.t('ledger-ui.s.connection'),
                 value: this.args.resource?.status === 'active' ? 'Ready' : 'Inactive',
                 status: this.args.resource?.status === 'active' ? 'ready' : 'inactive',
                 icon: 'plug',
@@ -164,7 +165,7 @@ export default class GatewayDetailsComponent extends Component {
                 accentClass: this.args.resource?.status === 'active' ? 'ledger-gateway-kpi-accent-green' : 'ledger-gateway-kpi-accent-slate',
             },
             {
-                label: 'Environment',
+                label: this.intl.t('ledger-ui.s.environment'),
                 value: this.args.resource?.environment === 'live' ? 'Live' : 'Sandbox',
                 status: this.args.resource?.environment ?? 'unknown',
                 icon: 'server',
@@ -172,7 +173,7 @@ export default class GatewayDetailsComponent extends Component {
                 accentClass: this.args.resource?.environment === 'live' ? 'ledger-gateway-kpi-accent-blue' : 'ledger-gateway-kpi-accent-amber',
             },
             {
-                label: 'Webhook',
+                label: this.intl.t('ledger-ui.s.webhook-2'),
                 value: this.webhookStatus === 'configured' ? 'Configured' : 'Needs Setup',
                 status: this.webhookStatus === 'configured' ? 'configured' : 'needs setup',
                 icon: 'link',
@@ -180,7 +181,7 @@ export default class GatewayDetailsComponent extends Component {
                 accentClass: this.webhookStatus === 'configured' ? 'ledger-gateway-kpi-accent-green' : 'ledger-gateway-kpi-accent-amber',
             },
             {
-                label: 'Credentials',
+                label: this.intl.t('ledger-ui.s.credentials'),
                 value: this.credentialTileValue,
                 status: this.credentialStatus,
                 icon: 'key',
@@ -193,17 +194,17 @@ export default class GatewayDetailsComponent extends Component {
     get providerStatusRows() {
         return [
             {
-                label: 'Driver',
+                label: this.intl.t('ledger-ui.s.gateway-driver'),
                 value: this.driverLabel,
                 icon: this.isTaler ? 'wallet' : 'plug',
             },
             {
-                label: 'Mode',
+                label: this.intl.t('ledger-ui.s.mode'),
                 value: this.args.resource?.environment === 'live' ? 'Live' : 'Sandbox',
                 icon: this.args.resource?.environment === 'live' ? 'bolt' : 'flask',
             },
             {
-                label: 'Credentials',
+                label: this.intl.t('ledger-ui.s.credentials'),
                 value: this.credentialStatus === 'not_checked' ? 'Not checked' : this.credentialStatus,
                 caption: this.lastCredentialTestMessage,
                 date: this.lastCredentialTestedAt,
@@ -211,28 +212,28 @@ export default class GatewayDetailsComponent extends Component {
                 status: this.credentialStatus === 'success' || this.credentialStatus === 'ok' ? 'success' : this.credentialStatus === 'failed' ? 'danger' : 'warning',
             },
             {
-                label: 'Webhook',
+                label: this.intl.t('ledger-ui.s.webhook-2'),
                 value: this.webhookStatus === 'configured' ? 'Configured' : 'Needs setup',
                 date: this.lastWebhookRegistrationAt ?? this.lastWebhookAt,
                 icon: 'link',
                 status: this.webhookStatus === 'configured' ? 'success' : 'warning',
             },
             {
-                label: 'Payment',
+                label: this.intl.t('ledger-ui.s.payment'),
                 value: this.lastPaymentAt ? 'Seen' : 'No payment yet',
                 date: this.lastPaymentAt,
                 icon: 'money-bill-transfer',
                 status: this.lastPaymentAt ? 'success' : 'default',
             },
             {
-                label: 'Refund',
+                label: this.intl.t('ledger-ui.s.refund'),
                 value: this.lastRefundAt ? 'Seen' : 'No refund yet',
                 date: this.lastRefundAt,
                 icon: 'rotate-left',
                 status: this.lastRefundAt ? 'success' : 'default',
             },
             {
-                label: 'Settlement',
+                label: this.intl.t('ledger-ui.s.settlement'),
                 value: this.reconciliationStatus ?? 'Not checked',
                 date: this.lastSettlementAt,
                 icon: 'scale-balanced',
@@ -244,29 +245,29 @@ export default class GatewayDetailsComponent extends Component {
     get setupIdentityRows() {
         return [
             {
-                label: 'Name',
+                label: this.intl.t('ledger-ui.s.name'),
                 value: this.args.resource?.name,
             },
             {
-                label: 'Driver',
+                label: this.intl.t('ledger-ui.s.gateway-driver'),
                 value: this.driverLabel,
             },
             {
-                label: 'Public ID',
+                label: this.intl.t('ledger-ui.s.public-id'),
                 value: this.args.resource?.public_id,
                 mono: true,
                 copyable: true,
             },
             {
-                label: 'Status',
+                label: this.intl.t('ledger-ui.s.status'),
                 value: this.args.resource?.status,
             },
             {
-                label: 'Environment',
+                label: this.intl.t('ledger-ui.s.environment'),
                 value: this.args.resource?.environment ?? (this.args.resource?.is_sandbox ? 'sandbox' : 'live'),
             },
             {
-                label: 'Created',
+                label: this.intl.t('ledger-ui.s.created'),
                 value: this.args.resource?.createdAt ?? this.args.resource?.created_at,
                 date: true,
             },
@@ -276,19 +277,19 @@ export default class GatewayDetailsComponent extends Component {
     get setupRoutingRows() {
         return [
             {
-                label: 'Return URL',
+                label: this.intl.t('ledger-ui.s.return-url'),
                 value: this.args.resource?.return_url,
                 mono: true,
                 copyable: true,
             },
             {
-                label: 'Ledger webhook URL',
+                label: this.intl.t('ledger-ui.s.ledger-webhook-url'),
                 value: this.args.resource?.system_webhook_url,
                 mono: true,
                 copyable: true,
             },
             {
-                label: 'Provider registered callback',
+                label: this.intl.t('ledger-ui.s.provider-registered-callback'),
                 value: this.args.resource?.webhook_url,
                 displayValue:
                     this.args.resource?.webhook_url && this.args.resource?.webhook_url === this.args.resource?.system_webhook_url
@@ -313,7 +314,7 @@ export default class GatewayDetailsComponent extends Component {
 
         return [
             {
-                label: 'Provider credentials',
+                label: this.intl.t('ledger-ui.s.provider-credentials'),
                 value: 'Stored encrypted and hidden',
             },
         ];
@@ -331,19 +332,19 @@ export default class GatewayDetailsComponent extends Component {
     get diagnosticsResults() {
         return [
             {
-                label: 'Credential test',
+                label: this.intl.t('ledger-ui.s.credential-test'),
                 value: this.lastCredentialTestMessage ?? 'No credential test has been run.',
                 date: this.lastCredentialTestedAt,
                 status: this.credentialStatus === 'success' || this.credentialStatus === 'ok' ? 'success' : this.credentialStatus === 'failed' ? 'danger' : 'warning',
             },
             {
-                label: 'Webhook registration',
+                label: this.intl.t('ledger-ui.s.webhook-registration'),
                 value: this.webhookRegistrationResultMessage,
                 date: this.lastWebhookRegistrationAt,
                 status: this.lastWebhookRegistrationAt ? 'success' : 'warning',
             },
             {
-                label: 'Test order',
+                label: this.intl.t('ledger-ui.s.test-order'),
                 value: this.lastTestOrderId ? `Last order ${this.lastTestOrderId}` : 'No test order has been created.',
                 date: this.lastTestOrderAt,
                 status: this.lastTestOrderId ? 'success' : 'warning',
@@ -359,8 +360,8 @@ export default class GatewayDetailsComponent extends Component {
         return [
             {
                 key: 'test-credentials',
-                title: 'Test Credentials',
-                description: 'Checks whether Ledger can authenticate against the configured Taler Merchant Backend.',
+                title: this.intl.t('ledger-ui.s.test-credentials'),
+                description: this.intl.t('ledger-ui.s.checks-whether-ledger-can-authenticate-against-t'),
                 expectedResult: 'Updates credential status and last checked time.',
                 icon: this.testCredentials.isRunning ? 'spinner' : 'check-circle',
                 isLoading: this.testCredentials.isRunning,
@@ -369,8 +370,8 @@ export default class GatewayDetailsComponent extends Component {
             },
             {
                 key: 'register-webhook',
-                title: 'Register Webhook',
-                description: 'Creates or updates the Taler webhook so payment events route back to this exact gateway.',
+                title: this.intl.t('ledger-ui.s.register-webhook'),
+                description: this.intl.t('ledger-ui.s.creates-or-updates-the-taler-webhook-so-payment'),
                 expectedResult: 'Stores the registered webhook URL and routing payload.',
                 icon: this.registerWebhook.isRunning ? 'spinner' : 'link',
                 isLoading: this.registerWebhook.isRunning,
@@ -381,8 +382,8 @@ export default class GatewayDetailsComponent extends Component {
             },
             {
                 key: 'create-test-order',
-                title: 'Create Test Order',
-                description: 'Creates a small sandbox order to verify order creation and wallet redirect behavior.',
+                title: this.intl.t('ledger-ui.s.create-test-order'),
+                description: this.intl.t('ledger-ui.s.creates-a-small-sandbox-order-to-verify-order-cr'),
                 expectedResult: 'Creates a provider test order and records its order id.',
                 icon: this.createTestOrder.isRunning ? 'spinner' : 'flask',
                 isLoading: this.createTestOrder.isRunning,
@@ -393,8 +394,8 @@ export default class GatewayDetailsComponent extends Component {
             },
             {
                 key: 'refresh',
-                title: 'Refresh Diagnostics',
-                description: 'Reloads the latest credential, webhook, payment, refund, and settlement diagnostic data from Ledger.',
+                title: this.intl.t('ledger-ui.s.refresh-diagnostics'),
+                description: this.intl.t('ledger-ui.s.reloads-the-latest-credential-webhook-payment-re'),
                 expectedResult: 'No provider mutation; refreshes this screen only.',
                 icon: this.loadDiagnostics.isRunning ? 'spinner' : 'rotate',
                 isLoading: this.loadDiagnostics.isRunning,
@@ -409,8 +410,8 @@ export default class GatewayDetailsComponent extends Component {
             ...this.diagnosticActions.filter((diagnosticAction) => diagnosticAction.key !== 'refresh'),
             {
                 key: 'copy-webhook-url',
-                title: 'Copy Webhook URL',
-                description: 'Copies the Ledger callback URL for manual provider setup.',
+                title: this.intl.t('ledger-ui.s.copy-webhook-url'),
+                description: this.intl.t('ledger-ui.s.copies-the-ledger-callback-url-for-manual-provid'),
                 expectedResult: 'Use this when provider webhook registration is handled outside Ledger.',
                 icon: 'copy',
                 action: this.copySystemWebhookUrl,
@@ -418,8 +419,8 @@ export default class GatewayDetailsComponent extends Component {
             },
             {
                 key: 'edit-settings',
-                title: 'Edit Settings',
-                description: 'Change the gateway name, credentials, routing, status, or environment.',
+                title: this.intl.t('ledger-ui.s.edit-settings'),
+                description: this.intl.t('ledger-ui.s.change-the-gateway-name-credentials-routing-stat'),
                 expectedResult: 'Opens the gateway setup wizard for this existing gateway.',
                 icon: 'pen-to-square',
                 action: this.editGateway,
@@ -494,12 +495,12 @@ export default class GatewayDetailsComponent extends Component {
         const url = this.args.resource?.system_webhook_url;
 
         if (!url) {
-            return this.notifications.warning('No system webhook URL is available yet.');
+            return this.notifications.warning(this.intl.t('ledger-ui.s.no-system-webhook-url-is-available-yet'));
         }
 
         copyToClipboard(url)
-            .then(() => this.notifications.success('System webhook URL copied.'))
-            .catch(() => this.notifications.error('Unable to copy webhook URL.'));
+            .then(() => this.notifications.success(this.intl.t('ledger-ui.s.system-webhook-url-copied')))
+            .catch(() => this.notifications.error(this.intl.t('ledger-ui.s.unable-to-copy-webhook-url')));
     }
 
     *runGatewayAction(action, successMessage) {

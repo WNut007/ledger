@@ -80,13 +80,13 @@ export default class AccountingJournalIndexController extends Controller {
                 filterOptionLabel: 'label',
                 filterOptionValue: 'value',
                 filterOptions: [
-                    { label: 'General', value: 'general' },
-                    { label: 'Payment', value: 'payment' },
-                    { label: 'Refund', value: 'refund' },
-                    { label: 'Adjustment', value: 'adjustment' },
-                    { label: 'Deposit', value: 'deposit' },
-                    { label: 'Withdrawal', value: 'withdrawal' },
-                    { label: 'Transfer', value: 'transfer' },
+                    { label: this.intl.t('ledger-ui.s.general'), value: 'general' },
+                    { label: this.intl.t('ledger-ui.s.payment'), value: 'payment' },
+                    { label: this.intl.t('ledger-ui.s.refund'), value: 'refund' },
+                    { label: this.intl.t('ledger-ui.s.adjustment'), value: 'adjustment' },
+                    { label: this.intl.t('ledger-ui.s.deposit'), value: 'deposit' },
+                    { label: this.intl.t('ledger-ui.s.withdrawal'), value: 'withdrawal' },
+                    { label: this.intl.t('ledger-ui.s.transfer'), value: 'transfer' },
                 ],
             },
             {
@@ -102,9 +102,9 @@ export default class AccountingJournalIndexController extends Controller {
                 filterOptionLabel: 'label',
                 filterOptionValue: 'value',
                 filterOptions: [
-                    { label: 'Posted', value: 'posted' },
-                    { label: 'Draft', value: 'draft' },
-                    { label: 'Voided', value: 'voided' },
+                    { label: this.intl.t('ledger-ui.s.posted'), value: 'posted' },
+                    { label: this.intl.t('ledger-ui.s.draft'), value: 'draft' },
+                    { label: this.intl.t('ledger-ui.s.voided'), value: 'voided' },
                 ],
             },
             {

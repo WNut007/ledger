@@ -43,6 +43,7 @@ function normaliseContextSchemas(response) {
 }
 
 export default class BillingInvoiceTemplatesIndexNewRoute extends Route {
+    @service intl;
     @service store;
     @service fetch;
 
@@ -51,7 +52,7 @@ export default class BillingInvoiceTemplatesIndexNewRoute extends Route {
             Promise.resolve(
                 this.store.createRecord('template', {
                     context_type: 'ledger-invoice',
-                    name: 'New Invoice Template',
+                    name: this.intl.t('ledger-ui.s.new-invoice-template'),
                     orientation: 'portrait',
                     unit: 'mm',
                     width: 210,

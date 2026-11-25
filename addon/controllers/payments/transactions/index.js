@@ -27,6 +27,7 @@ export default class PaymentsTransactionsIndexController extends Controller {
         'created_at',
         'updated_at',
         'settled_at',
+        'show_zero',
     ]);
     @tracked page = 1;
     @tracked limit = 30;
@@ -48,9 +49,19 @@ export default class PaymentsTransactionsIndexController extends Controller {
     @tracked updated_at = null;
     @tracked settled_at = null;
     @tracked table = null;
+    @tracked show_zero = false;
 
     get actionButtons() {
         return [
+            {
+                id: 'toggle-zero',
+                icon: this.show_zero ? 'eye-slash' : 'eye',
+                text: this.show_zero ? this.intl.t('ledger-ui.s.hide-zero-amounts') : this.intl.t('ledger-ui.s.show-zero-amounts'),
+                onClick: () => {
+                    this.show_zero = !this.show_zero;
+                    this.page = 1;
+                },
+            },
             {
                 id: 'refresh',
                 icon: 'refresh',
@@ -127,8 +138,8 @@ export default class PaymentsTransactionsIndexController extends Controller {
                 filterOptionLabel: 'label',
                 filterOptionValue: 'value',
                 filterOptions: [
-                    { label: 'Credit', value: 'credit' },
-                    { label: 'Debit', value: 'debit' },
+                    { label: this.intl.t('ledger-ui.s.credit'), value: 'credit' },
+                    { label: this.intl.t('ledger-ui.s.debit'), value: 'debit' },
                 ],
             },
             {
@@ -155,7 +166,7 @@ export default class PaymentsTransactionsIndexController extends Controller {
             },
             {
                 id: 'settlement-status',
-                label: 'Settlement',
+                label: this.intl.t('ledger-ui.s.settlement'),
                 valuePath: 'settlement_status',
                 cellComponent: 'table/cell/status',
                 hidden: true,
@@ -233,10 +244,10 @@ export default class PaymentsTransactionsIndexController extends Controller {
                 filterOptionLabel: 'label',
                 filterOptionValue: 'value',
                 filterOptions: [
-                    { label: 'Card', value: 'card' },
-                    { label: 'Bank Transfer', value: 'bank_transfer' },
-                    { label: 'Wallet', value: 'wallet' },
-                    { label: 'Cash', value: 'cash' },
+                    { label: this.intl.t('ledger-ui.s.card'), value: 'card' },
+                    { label: this.intl.t('ledger-ui.s.bank-transfer'), value: 'bank_transfer' },
+                    { label: this.intl.t('ledger-ui.s.wallet-2'), value: 'wallet' },
+                    { label: this.intl.t('ledger-ui.s.cash'), value: 'cash' },
                 ],
             },
             {

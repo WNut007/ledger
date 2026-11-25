@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
 
 export default class CustomerTalerRefundComponent extends Component {
+    @service intl;
     @service fetch;
     @service notifications;
     @service urlSearchParams;
@@ -70,7 +71,7 @@ export default class CustomerTalerRefundComponent extends Component {
         }
 
         navigator.clipboard?.writeText(this.talerRefundUri);
-        this.notifications.success('Refund URI copied.');
+        this.notifications.success(this.intl.t('ledger-ui.s.refund-uri-copied'));
     }
 
     installTalerSupportMeta() {

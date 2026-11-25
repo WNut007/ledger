@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class AccountingJournalIndexDetailsController extends Controller {
+    @service intl;
     @service notifications;
     @service modalsManager;
     @service hostRouter;
@@ -11,7 +12,7 @@ export default class AccountingJournalIndexDetailsController extends Controller 
     @tracked overlay = null;
 
     get tabs() {
-        return [{ label: 'Overview', route: 'accounting.journal.index.details.index' }];
+        return [{ label: this.intl.t('ledger-ui.s.overview'), route: 'accounting.journal.index.details.index' }];
     }
 
     get actionButtons() {
@@ -20,10 +21,10 @@ export default class AccountingJournalIndexDetailsController extends Controller 
         return [
             {
                 id: 'delete-entry',
-                label: 'Delete',
+                label: this.intl.t('ledger-ui.s.delete'),
                 icon: 'trash',
                 type: 'danger',
-                helpText: 'Permanently delete this journal entry. System entries cannot be deleted.',
+                helpText: this.intl.t('ledger-ui.s.permanently-delete-this-journal-entry-system-ent'),
                 onClick: this.deleteEntry,
             },
         ];
@@ -32,13 +33,13 @@ export default class AccountingJournalIndexDetailsController extends Controller 
     @action async deleteEntry() {
         const entry = this.model;
         this.modalsManager.confirm({
-            title: 'Delete Journal Entry?',
-            body: 'This action cannot be undone.',
+            title: this.intl.t('ledger-ui.s.delete-journal-entry'),
+            body: this.intl.t('ledger-ui.s.cannot-be-undone'),
             confirm: async (modal) => {
                 modal.startLoading();
                 try {
                     await entry.destroyRecord();
-                    this.notifications.success('Journal entry deleted.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.journal-entry-deleted'));
                     this.hostRouter.transitionTo('accounting.journal.index');
                     modal.done();
                 } catch (error) {

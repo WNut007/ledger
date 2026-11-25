@@ -1,15 +1,15 @@
 <div class="form-wrapper" ...attributes>
     {{! JOURNAL ENTRY DETAILS }}
-    <ContentPanel @title="Journal Entry" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.journal-entry"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             {{! Entry Identification }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-1">
-                Entry Information
+                {{t "ledger-ui.s.entry-information"}}
             </div>
 
             <InputGroup @name="Entry Number">
-                <Input @value={{@resource.number}} @type="text" class="w-full form-input" placeholder="e.g. JE-0001" disabled={{cannot-write @resource}} />
+                <Input @value={{@resource.number}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.e-g-je-0001"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
             <InputGroup @name="Entry Date">
@@ -22,7 +22,7 @@
                         @options={{array "standard" "adjusting" "closing" "reversing" "opening"}}
                         @selected={{@resource.type}}
                         @onChange={{fn (mut @resource.type)}}
-                        @placeholder="Select entry type"
+                        @placeholder={{t "ledger-ui.s.select-entry-type"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -74,7 +74,7 @@
                         }}
                         @selected={{@resource.currency}}
                         @onChange={{fn (mut @resource.currency)}}
-                        @placeholder="Select currency"
+                        @placeholder={{t "ledger-ui.s.select-currency"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -99,12 +99,12 @@
     </ContentPanel>
 
     {{! DOUBLE-ENTRY }}
-    <ContentPanel @title="Double-Entry" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.double-entry"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             {{! Debit Account }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-1">
-                Debit Account
+                {{t "ledger-ui.s.debit-account"}}
             </div>
 
             <InputGroup @name="Debit Account">
@@ -112,7 +112,7 @@
                     <ModelSelect
                         @modelName="ledger-account"
                         @selectedModel={{this.debitAccount}}
-                        @placeholder="Select debit account"
+                        @placeholder={{t "ledger-ui.s.select-debit-account"}}
                         @triggerClass="form-select form-input"
                         @infiniteScroll={{false}}
                         @renderInPlace={{true}}
@@ -134,7 +134,7 @@
 
             {{! Credit Account }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-3">
-                Credit Account
+                {{t "ledger-ui.s.credit-account"}}
             </div>
 
             <InputGroup @name="Credit Account">
@@ -142,7 +142,7 @@
                     <ModelSelect
                         @modelName="ledger-account"
                         @selectedModel={{this.creditAccount}}
-                        @placeholder="Select credit account"
+                        @placeholder={{t "ledger-ui.s.select-credit-account"}}
                         @triggerClass="form-select form-input"
                         @infiniteScroll={{false}}
                         @renderInPlace={{true}}
@@ -166,14 +166,14 @@
     </ContentPanel>
 
     {{! DESCRIPTION }}
-    <ContentPanel @title="Description" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.description"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 no-input-group-padding text-xs">
             <InputGroup @name="Description" @wrapperClass="col-span-2">
                 <Textarea
                     @value={{@resource.description}}
                     class="w-full form-input"
                     rows="3"
-                    placeholder="Describe the purpose of this journal entry..."
+                    placeholder={{t "ledger-ui.s.describe-the-purpose-of-this-journal-entry"}}
                     disabled={{cannot-write @resource}}
                 />
             </InputGroup>

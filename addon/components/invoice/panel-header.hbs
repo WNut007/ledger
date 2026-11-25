@@ -29,10 +29,10 @@
                     </span>
                     <span class="text-xs text-gray-500">
                         {{#if @resource.dueDate}}
-                            Due
+                            {{t "ledger-ui.s.due-2"}}
                             {{@resource.dueDate}}
                         {{else}}
-                            No due date
+                            {{t "ledger-ui.s.no-due-date"}}
                         {{/if}}
                     </span>
                 </div>

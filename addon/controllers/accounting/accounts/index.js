@@ -87,11 +87,11 @@ export default class AccountingAccountsIndexController extends Controller {
                 filterOptionLabel: 'label',
                 filterOptionValue: 'value',
                 filterOptions: [
-                    { label: 'Asset', value: 'asset' },
-                    { label: 'Liability', value: 'liability' },
-                    { label: 'Equity', value: 'equity' },
-                    { label: 'Revenue', value: 'revenue' },
-                    { label: 'Expense', value: 'expense' },
+                    { label: this.intl.t('ledger-ui.s.asset'), value: 'asset' },
+                    { label: this.intl.t('ledger-ui.s.liability'), value: 'liability' },
+                    { label: this.intl.t('ledger-ui.s.equity'), value: 'equity' },
+                    { label: this.intl.t('ledger-ui.s.revenue'), value: 'revenue' },
+                    { label: this.intl.t('ledger-ui.s.expense'), value: 'expense' },
                 ],
             },
             {
@@ -123,8 +123,8 @@ export default class AccountingAccountsIndexController extends Controller {
                 filterParam: 'status',
                 filterComponent: 'filter/select',
                 filterOptions: [
-                    { label: 'Active', value: 'active' },
-                    { label: 'Inactive', value: 'inactive' },
+                    { label: this.intl.t('ledger-ui.s.active'), value: 'active' },
+                    { label: this.intl.t('ledger-ui.s.inactive'), value: 'inactive' },
                 ],
             },
         ];

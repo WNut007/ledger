@@ -11,9 +11,16 @@ export default class PaymentsTransactionsIndexRoute extends Route {
         query: { refreshModel: true },
         status: { refreshModel: true },
         settlement_status: { refreshModel: true },
+        show_zero: { refreshModel: true },
     };
 
     model(params) {
-        return this.store.query('ledger-transaction', params);
+        // Zero-amount transactions (one per dispatched order) are hidden unless asked for.
+        const { show_zero, ...query } = params;
+        if (!show_zero) {
+            query.hide_zero = 1;
+        }
+
+        return this.store.query('ledger-transaction', query);
     }
 }

@@ -6,6 +6,7 @@ import { task } from 'ember-concurrency';
 import getCurrency from '@fleetbase/ember-ui/utils/get-currency';
 
 export default class SettingsAccountingController extends Controller {
+    @service intl;
     @service fetch;
     @service notifications;
     @service store;
@@ -30,18 +31,18 @@ export default class SettingsAccountingController extends Controller {
     currencies = getCurrency();
 
     fiscalYearMonthOptions = [
-        { label: 'January', value: 1 },
-        { label: 'February', value: 2 },
-        { label: 'March', value: 3 },
-        { label: 'April', value: 4 },
-        { label: 'May', value: 5 },
-        { label: 'June', value: 6 },
-        { label: 'July', value: 7 },
-        { label: 'August', value: 8 },
-        { label: 'September', value: 9 },
-        { label: 'October', value: 10 },
-        { label: 'November', value: 11 },
-        { label: 'December', value: 12 },
+        { label: this.intl.t('ledger-ui.s.january'), value: 1 },
+        { label: this.intl.t('ledger-ui.s.february'), value: 2 },
+        { label: this.intl.t('ledger-ui.s.march'), value: 3 },
+        { label: this.intl.t('ledger-ui.s.april'), value: 4 },
+        { label: this.intl.t('ledger-ui.s.may'), value: 5 },
+        { label: this.intl.t('ledger-ui.s.june'), value: 6 },
+        { label: this.intl.t('ledger-ui.s.july'), value: 7 },
+        { label: this.intl.t('ledger-ui.s.august'), value: 8 },
+        { label: this.intl.t('ledger-ui.s.september'), value: 9 },
+        { label: this.intl.t('ledger-ui.s.october'), value: 10 },
+        { label: this.intl.t('ledger-ui.s.november'), value: 11 },
+        { label: this.intl.t('ledger-ui.s.december'), value: 12 },
     ];
 
     constructor() {
@@ -133,7 +134,7 @@ export default class SettingsAccountingController extends Controller {
                 },
                 { namespace: 'ledger/int/v1' }
             );
-            this.notifications.success('Accounting settings saved.');
+            this.notifications.success(this.intl.t('ledger-ui.s.accounting-settings-saved'));
         } catch (error) {
             this.notifications.serverError(error);
         }

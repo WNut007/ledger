@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default class SettingsPaymentController extends Controller {
+    @service intl;
     @service fetch;
     @service notifications;
     @service store;
@@ -70,7 +71,7 @@ export default class SettingsPaymentController extends Controller {
                 },
                 { namespace: 'ledger/int/v1' }
             );
-            this.notifications.success('Payment settings saved.');
+            this.notifications.success(this.intl.t('ledger-ui.s.payment-settings-saved'));
         } catch (error) {
             this.notifications.serverError(error);
         }

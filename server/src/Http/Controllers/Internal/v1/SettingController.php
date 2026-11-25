@@ -24,6 +24,17 @@ use Illuminate\Http\Request;
  */
 class SettingController extends Controller
 {
+    /**
+     * Default currency for settings never saved: the organization's, not USD.
+     */
+    protected function companyCurrency(): string
+    {
+        $companyUuid = session('company');
+        $currency    = $companyUuid ? \Fleetbase\Models\Company::where('uuid', $companyUuid)->value('currency') : null;
+
+        return $currency ?: config('ledger.default_currency', 'USD');
+    }
+
     // =========================================================================
     // Invoice Settings
     // =========================================================================
@@ -35,7 +46,7 @@ class SettingController extends Controller
     {
         $defaults = [
             'invoice_prefix'           => 'INV',
-            'default_currency'         => 'USD',
+            'default_currency'         => $this->companyCurrency(),
             'payment_terms_days'       => 30,
             'due_date_offset_days'     => 30,
             'default_notes'            => '',
@@ -289,7 +300,7 @@ class SettingController extends Controller
     public function getAccountingSettings(): JsonResponse
     {
         $defaults = [
-            'base_currency'                => 'USD',
+            'base_currency'                => $this->companyCurrency(),
             'fiscal_year_start_month'      => 1,   // January
             'auto_post_journal_entries'    => false,
             'default_ar_account_uuid'      => null,

@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default class SettingsGatewaysIndexDetailsController extends Controller {
+    @service intl;
     @service notifications;
     @service modalsManager;
     @service hostRouter;
@@ -10,15 +11,15 @@ export default class SettingsGatewaysIndexDetailsController extends Controller {
 
     get tabs() {
         return [
-            { label: 'Configuration', route: 'console.ledger.settings.gateways.index.details.index' },
-            { label: 'Webhook Events', route: 'console.ledger.settings.gateways.index.details.webhooks' },
+            { label: this.intl.t('ledger-ui.s.configuration'), route: 'console.ledger.settings.gateways.index.details.index' },
+            { label: this.intl.t('ledger-ui.s.webhook-events'), route: 'console.ledger.settings.gateways.index.details.webhooks' },
         ];
     }
 
     get actionButtons() {
         return [
-            { label: 'Edit', icon: 'pencil', type: 'default', onClick: this.editGateway },
-            { label: 'Remove', icon: 'trash', type: 'danger', onClick: this.deleteGateway },
+            { label: this.intl.t('ledger-ui.s.edit'), icon: 'pencil', type: 'default', onClick: this.editGateway },
+            { label: this.intl.t('ledger-ui.s.remove'), icon: 'trash', type: 'danger', onClick: this.deleteGateway },
         ];
     }
 
@@ -28,13 +29,13 @@ export default class SettingsGatewaysIndexDetailsController extends Controller {
 
     @action async deleteGateway() {
         this.modalsManager.confirm({
-            title: 'Remove Payment Gateway?',
-            body: `This will remove "${this.model.name}". Any active integrations using this gateway will stop working.`,
+            title: this.intl.t('ledger-ui.s.remove-payment-gateway'),
+            body: this.intl.t('ledger-ui.s.remove-gateway-body', { name: this.model.name }),
             confirm: async (modal) => {
                 modal.startLoading();
                 try {
                     await this.model.destroyRecord();
-                    this.notifications.success('Gateway removed.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.gateway-removed'));
                     this.hostRouter.transitionTo('console.ledger.payments.gateways.index');
                     modal.done();
                 } catch (error) {

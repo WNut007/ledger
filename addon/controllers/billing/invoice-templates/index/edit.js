@@ -66,7 +66,7 @@ export default class BillingInvoiceTemplatesIndexEditController extends Controll
             // (including the builder's @template arg) reflect the latest state.
             this.store.push(this.store.normalize('template', response.template ?? response));
 
-            this.notifications.success(`Invoice template "${template.name}" saved.`);
+            this.notifications.success(this.intl.t('ledger-ui.s.template-saved', { name: template.name }));
         } catch (err) {
             this.notifications.serverError(err);
         }

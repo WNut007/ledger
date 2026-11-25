@@ -5,7 +5,7 @@
             <div class="flex flex-row items-center space-x-2 mt-0.5">
                 <Badge @status="info" @hideStatusDot={{true}}>{{titleize (humanize @resource.type)}}</Badge>
                 {{#if @resource.is_system_entry}}
-                    <Badge @color="blue">System</Badge>
+                    <Badge @color="blue">{{t "ledger-ui.s.system"}}</Badge>
                 {{/if}}
             </div>
         </div>

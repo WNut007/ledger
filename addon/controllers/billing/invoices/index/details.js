@@ -23,8 +23,8 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
      */
     get tabs() {
         return [
-            { label: 'Details', route: 'billing.invoices.index.details.index' },
-            { label: 'Transactions', route: 'billing.invoices.index.details.transactions' },
+            { label: this.intl.t('ledger-ui.s.details'), route: 'billing.invoices.index.details.index' },
+            { label: this.intl.t('ledger-ui.s.transactions'), route: 'billing.invoices.index.details.transactions' },
         ];
     }
 
@@ -36,7 +36,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         if (invoice?.template_uuid) {
             buttons.push({
                 id: 'preview-invoice',
-                label: 'Preview',
+                label: this.intl.t('ledger-ui.s.preview'),
                 icon: 'eye',
                 type: 'default',
                 helpText: this.intl.t('invoice.actions.preview-invoice', { number: invoice.number }),
@@ -48,7 +48,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         if (!['paid', 'refunded', 'refund_pending', 'partial_refund_pending', 'void', 'cancelled'].includes(invoice?.status)) {
             buttons.push({
                 id: 'edit',
-                label: 'Edit',
+                label: this.intl.t('ledger-ui.s.edit'),
                 icon: 'pencil',
                 type: 'default',
                 helpText: this.intl.t('invoice.actions.edit'),
@@ -63,7 +63,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         if (invoice?.status === 'draft') {
             dropdownItems.push({
                 id: 'send-invoice',
-                text: 'Send Invoice',
+                text: this.intl.t('ledger-ui.s.send-invoice'),
                 icon: 'paper-plane',
                 fn: () => this.sendInvoice(),
             });
@@ -82,7 +82,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         if (this.hasRefunds) {
             dropdownItems.push({
                 id: 'view-refunds',
-                text: 'View Refunds',
+                text: this.intl.t('ledger-ui.s.view-refunds'),
                 icon: 'receipt',
                 fn: () => this.viewRefunds(),
             });
@@ -92,7 +92,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         if (this.canIssueRefund) {
             dropdownItems.push({
                 id: 'issue-refund',
-                text: 'Issue Refund',
+                text: this.intl.t('ledger-ui.s.issue-refund'),
                 icon: 'undo',
                 class: 'text-red-500 hover:text-red-700',
                 fn: () => this.issueRefund(),
@@ -158,7 +158,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         const invoice = this.model;
         try {
             await this.fetch.post(`invoices/${invoice.id}/send`, {}, { namespace: 'ledger/int/v1' });
-            this.notifications.success('Invoice sent successfully.');
+            this.notifications.success(this.intl.t('ledger-ui.s.invoice-sent-successfully'));
             this.hostRouter.refresh();
         } catch (error) {
             this.notifications.serverError(error);
@@ -176,14 +176,14 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
             paymentMethod: 'bank_transfer',
             reference: '',
             paymentMethodOptions: [
-                { label: 'Bank Transfer', value: 'bank_transfer' },
-                { label: 'Cash', value: 'cash' },
-                { label: 'Cheque', value: 'cheque' },
-                { label: 'Credit Card', value: 'credit_card' },
-                { label: 'Debit Card', value: 'debit_card' },
+                { label: this.intl.t('ledger-ui.s.bank-transfer'), value: 'bank_transfer' },
+                { label: this.intl.t('ledger-ui.s.cash'), value: 'cash' },
+                { label: this.intl.t('ledger-ui.s.cheque'), value: 'cheque' },
+                { label: this.intl.t('ledger-ui.s.credit-card'), value: 'credit_card' },
+                { label: this.intl.t('ledger-ui.s.debit-card'), value: 'debit_card' },
                 { label: 'PayPal', value: 'paypal' },
                 { label: 'Stripe', value: 'stripe' },
-                { label: 'Other', value: 'other' },
+                { label: this.intl.t('ledger-ui.s.other'), value: 'other' },
             ],
             setAmount: (centsValue) => {
                 options.amount = centsValue;
@@ -196,7 +196,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
             },
             confirm: async (modal) => {
                 if (!options.amount || options.amount <= 0) {
-                    this.notifications.warning('Please enter a valid payment amount greater than zero.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.please-enter-a-valid-payment-amount-greater-than'));
                     return;
                 }
                 modal.startLoading();
@@ -210,7 +210,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
                         },
                         { namespace: 'ledger/int/v1' }
                     );
-                    this.notifications.success('Payment recorded successfully.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.payment-recorded-successfully'));
                     await invoice.reload();
                     modal.done();
                 } catch (error) {
@@ -240,14 +240,14 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
             });
 
             if (refundOptions.length === 0) {
-                this.notifications.warning('This invoice has no refundable gateway payments.');
+                this.notifications.warning(this.intl.t('ledger-ui.s.this-invoice-has-no-refundable-gateway-payments'));
                 return;
             }
 
             const selectedOption = refundOptions[0];
             const options = {
-                title: `Issue Refund ${invoice.number}`,
-                acceptButtonText: 'Issue Refund',
+                title: this.intl.t('ledger-ui.s.issue-refund-title', { number: invoice.number }),
+                acceptButtonText: this.intl.t('ledger-ui.s.issue-refund'),
                 acceptButtonIcon: 'undo',
                 acceptButtonScheme: 'danger',
                 invoice,
@@ -261,17 +261,17 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
                     const selected = refundOptions.find((option) => option.gateway_transaction_id === options.selectedGatewayTransactionId);
 
                     if (!selected) {
-                        this.notifications.warning('Select a refundable payment.');
+                        this.notifications.warning(this.intl.t('ledger-ui.s.select-a-refundable-payment'));
                         return;
                     }
 
                     if (!options.amount || options.amount <= 0) {
-                        this.notifications.warning('Enter a refund amount greater than zero.');
+                        this.notifications.warning(this.intl.t('ledger-ui.s.enter-a-refund-amount-greater-than-zero'));
                         return;
                     }
 
                     if (options.amount > selected.refundable_amount) {
-                        this.notifications.warning('Refund amount exceeds the selected payment remaining amount.');
+                        this.notifications.warning(this.intl.t('ledger-ui.s.refund-amount-exceeds-the-selected-payment-remai'));
                         return;
                     }
 
@@ -291,8 +291,8 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         const talerNote = selected.requires_customer_action ? ' GNU Taler may return a refund URI that must be shared with the customer wallet.' : '';
 
         this.modalsManager.confirm({
-            title: `Confirm Refund ${invoice.number}`,
-            body: `Issue a ${amountLabel} refund through ${gatewayLabel}? This will create a gateway refund and Ledger reversal.${talerNote}`,
+            title: this.intl.t('ledger-ui.s.confirm-refund-title', { number: invoice.number }),
+            body: this.intl.t('ledger-ui.s.issue-refund-body', { amount: amountLabel, gateway: gatewayLabel }) + talerNote,
             confirm: async (confirmationModal) => {
                 confirmationModal.startLoading();
 
@@ -301,7 +301,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
                     const responseData = response.data ?? {};
                     const refundUrl = response.refund?.refund_url ?? responseData.refund_url ?? responseData.taler_refund_uri;
 
-                    this.notifications.success('Refund issued successfully.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.refund-issued-successfully'));
                     await invoice.reload();
                     this.hostRouter.refresh();
                     confirmationModal.done();
@@ -346,7 +346,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
             this.refundRows = result.refunds ?? [];
 
             this.modalsManager.show('modals/refund-history', {
-                title: `Refunds ${invoice.number}`,
+                title: this.intl.t('ledger-ui.s.refunds-title', { number: invoice.number }),
                 acceptButtonText: 'Done',
                 acceptButtonIcon: 'check',
                 refunds: this.refundRows,
@@ -362,7 +362,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
 
     showRefundResult(response, refundUrl) {
         this.modalsManager.show('modals/refund-result', {
-            title: 'Refund Issued',
+            title: this.intl.t('ledger-ui.s.refund-issued'),
             acceptButtonText: 'Done',
             acceptButtonIcon: 'check',
             refundUrl,
@@ -381,7 +381,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         const refundId = refund?.id ?? refund?.uuid ?? refund?.gateway_transaction_id;
 
         if (!refundId) {
-            this.notifications.warning('Unable to resolve the refund transaction.');
+            this.notifications.warning(this.intl.t('ledger-ui.s.unable-to-resolve-the-refund-transaction'));
             return;
         }
 
@@ -404,7 +404,7 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
         const refundId = refund?.id ?? refund?.uuid ?? refund?.gateway_transaction_id;
 
         if (!refundId) {
-            this.notifications.warning('Unable to resolve the refund transaction.');
+            this.notifications.warning(this.intl.t('ledger-ui.s.unable-to-resolve-the-refund-transaction'));
             return;
         }
 
@@ -429,13 +429,13 @@ export default class BillingInvoicesIndexDetailsController extends Controller {
     @action async voidInvoice() {
         const invoice = this.model;
         this.modalsManager.confirm({
-            title: `Void Invoice ${invoice.number}?`,
-            body: 'This will mark the invoice as void and cannot be undone.',
+            title: this.intl.t('ledger-ui.s.void-invoice-title', { number: invoice.number }),
+            body: this.intl.t('ledger-ui.s.void-invoice-body'),
             confirm: async (modal) => {
                 modal.startLoading();
                 try {
                     await this.fetch.post(`invoices/${invoice.id}/void`, {}, { namespace: 'ledger/int/v1' });
-                    this.notifications.success('Invoice voided.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.invoice-voided'));
                     this.hostRouter.refresh();
                     modal.done();
                 } catch (error) {

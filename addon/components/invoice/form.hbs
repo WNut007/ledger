@@ -1,7 +1,7 @@
 <div class="invoice-form" ...attributes>
 
     {{! ── INVOICE DETAILS ─────────────────────────────────────────────────── }}
-    <ContentPanel @title="Invoice Details" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.invoice-details"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             {{! Invoice Number — auto-generated on create; read-only on edit }}
@@ -10,7 +10,7 @@
                     @value={{@resource.number}}
                     @type="text"
                     class="w-full form-input"
-                    placeholder="Auto-generated if left blank"
+                    placeholder={{t "ledger-ui.s.auto-generated-if-left-blank"}}
                     disabled={{or (cannot-write @resource) (not @resource.isNew)}}
                 />
             </InputGroup>
@@ -22,7 +22,7 @@
                         @options={{array "draft" "sent" "viewed" "partial" "paid" "partial_refund_pending" "refund_pending" "refunded" "overdue" "cancelled"}}
                         @selected={{@resource.status}}
                         @onChange={{fn (mut @resource.status)}}
-                        @placeholder="Select status"
+                        @placeholder={{t "ledger-ui.s.select-status"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -42,7 +42,7 @@
                 <ModelSelect
                     @modelName="template"
                     @selectedModel={{@resource.template}}
-                    @placeholder="Select a template (optional)"
+                    @placeholder={{t "ledger-ui.s.select-a-template-optional"}}
                     @triggerClass="form-select form-input"
                     @infiniteScroll={{false}}
                     @renderInPlace={{true}}
@@ -62,14 +62,14 @@
     </ContentPanel>
 
     {{! ── CUSTOMER ────────────────────────────────────────────────────────── }}
-    <ContentPanel @title="Customer" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.customer"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 no-input-group-padding text-xs">
 
             <InputGroup @name="Customer">
                 <ModelSelect
                     @modelName="customer"
                     @selectedModel={{@resource.customer}}
-                    @placeholder="Search contacts or vendors…"
+                    @placeholder={{t "ledger-ui.s.search-contacts-or-vendors"}}
                     @triggerClass="form-select form-input"
                     @infiniteScroll={{false}}
                     @renderInPlace={{true}}
@@ -89,7 +89,7 @@
     </ContentPanel>
 
     {{! ── DATES ───────────────────────────────────────────────────────────── }}
-    <ContentPanel @title="Dates" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.dates"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             <InputGroup @name="Invoice Date">
@@ -116,12 +116,12 @@
     </ContentPanel>
 
     {{! ── LINE ITEMS ──────────────────────────────────────────────────────── }}
-    <ContentPanel @title="Line Items" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.line-items"}} @open={{true}} @wrapperClass="bordered-top">
         <Invoice::LineItems @items={{this.initialItems}} @invoice={{@resource}} @currency={{this.currency}} @disabled={{cannot-write @resource}} @registerRef={{this.registerLineItemsRef}} />
     </ContentPanel>
 
     {{! ── NOTES & TERMS ───────────────────────────────────────────────────── }}
-    <ContentPanel @title="Notes & Terms" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.notes-terms"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 no-input-group-padding text-xs">
 
             <InputGroup @name="Notes">
@@ -129,13 +129,13 @@
                     @value={{@resource.notes}}
                     class="w-full form-input"
                     rows="3"
-                    placeholder="Add any notes or payment instructions for the customer…"
+                    placeholder={{t "ledger-ui.s.add-any-notes-or-payment-instructions-for-the-cu"}}
                     disabled={{cannot-write @resource}}
                 />
             </InputGroup>
 
             <InputGroup @name="Terms">
-                <Textarea @value={{@resource.terms}} class="w-full form-input" rows="3" placeholder="Payment terms, e.g. Net 30…" disabled={{cannot-write @resource}} />
+                <Textarea @value={{@resource.terms}} class="w-full form-input" rows="3" placeholder={{t "ledger-ui.s.payment-terms-e-g-net-30"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
         </div>

@@ -1,15 +1,15 @@
 <div class="form-wrapper" ...attributes>
     {{! WALLET DETAILS }}
-    <ContentPanel @title="Wallet Details" @open={{true}} @wrapperClass="bordered-top">
+    <ContentPanel @title={{t "ledger-ui.s.wallet-details"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             {{! Identification }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-1">
-                Wallet Information
+                {{t "ledger-ui.s.wallet-information"}}
             </div>
 
             <InputGroup @name="Wallet Name" @wrapperClass="col-span-2">
-                <Input @value={{@resource.name}} @type="text" class="w-full form-input" placeholder="e.g. Main Wallet" disabled={{cannot-write @resource}} />
+                <Input @value={{@resource.name}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.e-g-main-wallet"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
             <InputGroup @name="Type">
@@ -18,7 +18,7 @@
                         @options={{array "driver" "customer" "company" "system"}}
                         @selected={{@resource.type}}
                         @onChange={{fn (mut @resource.type)}}
-                        @placeholder="Select wallet type"
+                        @placeholder={{t "ledger-ui.s.select-wallet-type"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -70,7 +70,7 @@
                         }}
                         @selected={{@resource.currency}}
                         @onChange={{fn (mut @resource.currency)}}
-                        @placeholder="Select currency"
+                        @placeholder={{t "ledger-ui.s.select-currency"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -86,7 +86,7 @@
                         @options={{array "active" "inactive" "frozen" "suspended"}}
                         @selected={{@resource.status}}
                         @onChange={{fn (mut @resource.status)}}
-                        @placeholder="Select status"
+                        @placeholder={{t "ledger-ui.s.select-status"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -98,11 +98,11 @@
 
             {{! Owner }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-3">
-                Owner
+                {{t "ledger-ui.s.owner"}}
             </div>
 
             <InputGroup @name="Owner UUID" @wrapperClass="col-span-2">
-                <Input @value={{@resource.owner_uuid}} @type="text" class="w-full form-input" placeholder="Owner UUID" disabled={{cannot-write @resource}} />
+                <Input @value={{@resource.owner_uuid}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.owner-uuid"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
             <InputGroup @name="Owner Type">
@@ -111,7 +111,7 @@
                         @options={{array "contact" "vendor" "user" "driver"}}
                         @selected={{@resource.owner_type}}
                         @onChange={{fn (mut @resource.owner_type)}}
-                        @placeholder="Select owner type"
+                        @placeholder={{t "ledger-ui.s.select-owner-type"}}
                         @triggerClass="form-select form-input"
                         @disabled={{cannot-write @resource}}
                         as |option|
@@ -123,14 +123,14 @@
 
             {{! Settings }}
             <div class="col-span-1 lg:col-span-2 text-[11px] uppercase tracking-wide text-gray-500 font-semibold mt-3">
-                Settings
+                {{t "ledger-ui.s.settings"}}
             </div>
 
             <InputGroup @name="Frozen" @wrapperClass="col-span-2">
                 <Toggle
                     @isToggled={{@resource.is_frozen}}
-                    @label="Freeze this wallet"
-                    @helpText="Frozen wallets cannot send or receive funds."
+                    @label={{t "ledger-ui.s.freeze-this-wallet"}}
+                    @helpText={{t "ledger-ui.s.frozen-wallets-cannot-send-or-receive-funds"}}
                     @onToggle={{fn (mut @resource.is_frozen)}}
                     @disabled={{cannot-write @resource}}
                 />

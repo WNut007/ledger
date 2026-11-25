@@ -1,7 +1,9 @@
+import { inject as service } from '@ember/service';
 import ResourceActionService from '@fleetbase/ember-core/services/resource-action';
 import { action } from '@ember/object';
 
 export default class InvoiceActionsService extends ResourceActionService {
+    @service intl;
     constructor() {
         super(...arguments);
         this.initialize('ledger-invoice', {
@@ -56,22 +58,22 @@ export default class InvoiceActionsService extends ResourceActionService {
      */
     @action async recordPayment(invoice, options = {}) {
         const modalOptions = {
-            title: `Record Payment — ${invoice.number}`,
-            acceptButtonText: 'Record Payment',
+            title: this.intl.t('ledger-ui.s.record-payment-title', { number: invoice.number }),
+            acceptButtonText: this.intl.t('ledger-ui.s.record-payment'),
             acceptButtonIcon: 'check-circle',
             invoice,
             amount: invoice.balance ?? 0,
             paymentMethod: 'bank_transfer',
             reference: '',
             paymentMethodOptions: [
-                { label: 'Bank Transfer', value: 'bank_transfer' },
-                { label: 'Cash', value: 'cash' },
-                { label: 'Cheque', value: 'cheque' },
-                { label: 'Credit Card', value: 'credit_card' },
-                { label: 'Debit Card', value: 'debit_card' },
+                { label: this.intl.t('ledger-ui.s.bank-transfer'), value: 'bank_transfer' },
+                { label: this.intl.t('ledger-ui.s.cash'), value: 'cash' },
+                { label: this.intl.t('ledger-ui.s.cheque'), value: 'cheque' },
+                { label: this.intl.t('ledger-ui.s.credit-card'), value: 'credit_card' },
+                { label: this.intl.t('ledger-ui.s.debit-card'), value: 'debit_card' },
                 { label: 'PayPal', value: 'paypal' },
                 { label: 'Stripe', value: 'stripe' },
-                { label: 'Other', value: 'other' },
+                { label: this.intl.t('ledger-ui.s.other'), value: 'other' },
             ],
             setAmount: (centsValue) => {
                 modalOptions.amount = centsValue;
@@ -84,7 +86,7 @@ export default class InvoiceActionsService extends ResourceActionService {
             },
             confirm: async (modal) => {
                 if (!modalOptions.amount || modalOptions.amount <= 0) {
-                    this.notifications.warning('Please enter a valid payment amount greater than zero.');
+                    this.notifications.warning(this.intl.t('ledger-ui.s.please-enter-a-valid-payment-amount-greater-than'));
                     return;
                 }
                 modal.startLoading();
@@ -98,7 +100,7 @@ export default class InvoiceActionsService extends ResourceActionService {
                         },
                         { namespace: 'ledger/int/v1' }
                     );
-                    this.notifications.success('Payment recorded successfully.');
+                    this.notifications.success(this.intl.t('ledger-ui.s.payment-recorded-successfully'));
                     await invoice.reload();
                     modal.done();
                 } catch (error) {

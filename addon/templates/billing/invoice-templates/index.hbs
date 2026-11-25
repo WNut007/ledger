@@ -1,7 +1,7 @@
 <Layout::Resource::Tabular
     @registry="ledger:invoice-template:table"
     @resource="template"
-    @title="Invoice Templates"
+    @title={{t "ledger-ui.s.invoice-templates"}}
     @searchQuery={{this.query}}
     @onSearch={{fn (mut this.query)}}
     @data={{@model}}
