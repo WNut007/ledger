@@ -28,6 +28,18 @@ const KEYS = {
     operating: 'operating',
     financing: 'financing',
     investing: 'investing',
+    credit: 'tx-credit',
+    debit: 'tx-debit',
+    dispatch: 'tx-dispatch',
+    wallet_deposit: 'tx-wallet-deposit',
+    wallet_withdrawal: 'tx-wallet-withdrawal',
+    wallet_transfer: 'tx-wallet-transfer',
+    gateway_charge: 'tx-gateway-charge',
+    gateway_refund: 'tx-gateway-refund',
+    gateway_payout: 'tx-gateway-payout',
+    adjustment: 'tx-adjustment',
+    earning: 'tx-earning',
+    fee: 'tx-fee',
 };
 
 export default function ledgerLabel(intl, value) {

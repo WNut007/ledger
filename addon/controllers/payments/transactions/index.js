@@ -1,3 +1,4 @@
+import ledgerLabel from '../../../utils/ledger-label';
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -117,6 +118,7 @@ export default class PaymentsTransactionsIndexController extends Controller {
                 id: 'type',
                 label: this.intl.t('column.type'),
                 valuePath: 'type',
+                formatValue: (value) => ledgerLabel(this.intl, value),
                 resizable: true,
                 sortable: true,
                 filterable: true,
@@ -129,7 +131,7 @@ export default class PaymentsTransactionsIndexController extends Controller {
                 label: this.intl.t('column.direction'),
                 valuePath: 'direction',
                 cellComponent: 'table/cell/base',
-                humanize: true,
+                formatValue: (value) => ledgerLabel(this.intl, value),
                 resizable: true,
                 sortable: true,
                 filterable: true,
