@@ -15,12 +15,14 @@ export default class SettingsGatewaysIndexController extends Controller {
     @tracked table = null;
     @tracked availableDrivers = [];
 
-    columns = [
-        { label: this.intl.t('ledger-ui.s.name'), valuePath: 'name', width: '180px' },
-        { label: this.intl.t('ledger-ui.s.gateway-driver'), valuePath: 'driver_label', width: '120px' },
-        { label: this.intl.t('ledger-ui.s.environment'), valuePath: 'environment', width: '100px' },
-        { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status_label', width: '90px', cellComponent: 'table/cell/status' },
-    ];
+    get columns() {
+        return [
+            { label: this.intl.t('ledger-ui.s.name'), valuePath: 'name', width: '180px' },
+            { label: this.intl.t('ledger-ui.s.gateway-driver'), valuePath: 'driver_label', width: '120px' },
+            { label: this.intl.t('ledger-ui.s.environment'), valuePath: 'environment', width: '100px' },
+            { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status_label', width: '90px', cellComponent: 'table/cell/status' },
+        ];
+    }
 
     get actionButtons() {
         return [{ label: this.intl.t('ledger-ui.s.add-gateway'), icon: 'plus', type: 'primary', onClick: this.addGateway }];

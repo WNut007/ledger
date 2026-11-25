@@ -16,7 +16,7 @@
 
             {{! ── Default Gateway ─────────────────────────────────────────────── }}
             <ContentPanel @title={{t "ledger-ui.s.default-payment-gateway"}} @open={{true}} @wrapperClass="bordered-classic">
-                <InputGroup @name="Default Gateway" @helpText={{t "ledger-ui.s.the-gateway-used-for-all-invoice-payments-unless"}}>
+                <InputGroup @name={{t "ledger-ui.s.default-gateway"}} @helpText={{t "ledger-ui.s.the-gateway-used-for-all-invoice-payments-unless"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.availableGateways}}
@@ -53,7 +53,7 @@
 
             {{! ── Payment Behaviour ───────────────────────────────────────────── }}
             <ContentPanel @title={{t "ledger-ui.s.payment-behaviour"}} @open={{true}} @wrapperClass="bordered-classic">
-                <InputGroup @name="Allow Partial Payments">
+                <InputGroup @name={{t "ledger-ui.s.allow-partial-payments"}}>
                     <Toggle
                         @isToggled={{this.allow_partial_payments}}
                         @label={{t "ledger-ui.s.allow-customers-to-pay-a-portion-of-the-invoice"}}
@@ -61,7 +61,7 @@
                     />
                 </InputGroup>
 
-                <InputGroup @name="Auto-Apply Wallet Credit">
+                <InputGroup @name={{t "ledger-ui.s.auto-apply-wallet-credit"}}>
                     <Toggle
                         @isToggled={{this.auto_apply_wallet_credit}}
                         @label={{t "ledger-ui.s.automatically-apply-available-wallet-balance-tow"}}
@@ -72,7 +72,7 @@
 
             {{! ── Notifications ───────────────────────────────────────────────── }}
             <ContentPanel @title={{t "ledger-ui.s.payment-notifications"}} @open={{true}} @wrapperClass="bordered-classic">
-                <InputGroup @name="Send Payment Receipt">
+                <InputGroup @name={{t "ledger-ui.s.send-payment-receipt"}}>
                     <Toggle
                         @isToggled={{this.send_payment_receipt}}
                         @label={{t "ledger-ui.s.email-a-payment-receipt-to-the-customer-automati"}}

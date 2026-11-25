@@ -14,25 +14,27 @@ export default class JournalActionsService extends ResourceActionService {
         create: () => this.transitionTo('accounting.journal.index.new'),
     };
 
-    panel = {
-        create: (attributes = {}, options = {}) => {
-            const journal = this.createNewInstance(attributes);
-            return this.resourceContextPanel.open({
-                content: 'journal/form',
-                title: this.intl.t('common.create-a-new-resource', { resource: this.intl.t('resource.journal')?.toLowerCase() }),
-                saveOptions: { callback: this.refresh },
-                useDefaultSaveTask: true,
-                journal,
-                ...options,
-            });
-        },
+    get panel() {
+        return {
+            create: (attributes = {}, options = {}) => {
+                const journal = this.createNewInstance(attributes);
+                return this.resourceContextPanel.open({
+                    content: 'journal/form',
+                    title: this.intl.t('common.create-a-new-resource', { resource: this.intl.t('resource.journal')?.toLowerCase() }),
+                    saveOptions: { callback: this.refresh },
+                    useDefaultSaveTask: true,
+                    journal,
+                    ...options,
+                });
+            },
 
-        view: (journal, options = {}) => {
-            return this.resourceContextPanel.open({
-                journal,
-                tabs: [{ label: this.intl.t('common.overview'), component: 'journal/details' }],
-                ...options,
-            });
-        },
-    };
+            view: (journal, options = {}) => {
+                return this.resourceContextPanel.open({
+                    journal,
+                    tabs: [{ label: this.intl.t('common.overview'), component: 'journal/details' }],
+                    ...options,
+                });
+            },
+        };
+    }
 }

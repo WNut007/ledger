@@ -16,7 +16,7 @@
 
             {{! ── Base Currency & Fiscal Year ────────────────────────────────────── }}
             <ContentPanel @title={{t "ledger-ui.s.currency-fiscal-year"}} @open={{true}} @wrapperClass="bordered-classic">
-                <InputGroup @name="Base Currency" @helpText={{t "ledger-ui.s.the-reporting-currency-for-all-financial-stateme"}}>
+                <InputGroup @name={{t "ledger-ui.s.base-currency"}} @helpText={{t "ledger-ui.s.the-reporting-currency-for-all-financial-stateme"}}>
                     <CurrencySelect
                         @currency={{this.effectiveCurrency}}
                         @currencyData={{this.selectedCurrency}}
@@ -30,7 +30,7 @@
                     {{/unless}}
                 </InputGroup>
 
-                <InputGroup @name="Fiscal Year Start Month" @helpText={{t "ledger-ui.s.the-month-in-which-your-organisation-s-fiscal-ye"}}>
+                <InputGroup @name={{t "ledger-ui.s.fiscal-year-start-month"}} @helpText={{t "ledger-ui.s.the-month-in-which-your-organisation-s-fiscal-ye"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.fiscalYearMonthOptions}}
@@ -52,7 +52,7 @@
                     {{t "ledger-ui.s.these-accounts-are-used-automatically-when-posti"}}
                 </div>
 
-                <InputGroup @name="Default Revenue Account" @helpText={{t "ledger-ui.s.applied-to-income-line-items-on-invoices-and-sal"}}>
+                <InputGroup @name={{t "ledger-ui.s.default-revenue-account"}} @helpText={{t "ledger-ui.s.applied-to-income-line-items-on-invoices-and-sal"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.revenueAccounts}}
@@ -73,7 +73,7 @@
                     </div>
                 </InputGroup>
 
-                <InputGroup @name="Default Expense Account" @helpText={{t "ledger-ui.s.applied-to-cost-and-expense-line-items-on-bills"}}>
+                <InputGroup @name={{t "ledger-ui.s.default-expense-account"}} @helpText={{t "ledger-ui.s.applied-to-cost-and-expense-line-items-on-bills"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.expenseAccounts}}
@@ -94,7 +94,7 @@
                     </div>
                 </InputGroup>
 
-                <InputGroup @name="Default Accounts Receivable (AR) Account" @helpText={{t "ledger-ui.s.the-asset-account-that-tracks-money-owed-to-your"}}>
+                <InputGroup @name={{t "ledger-ui.s.default-accounts-receivable-ar-account"}} @helpText={{t "ledger-ui.s.the-asset-account-that-tracks-money-owed-to-your"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.arAccounts}}
@@ -115,7 +115,7 @@
                     </div>
                 </InputGroup>
 
-                <InputGroup @name="Default Accounts Payable (AP) Account" @helpText={{t "ledger-ui.s.the-liability-account-that-tracks-money-your-org"}}>
+                <InputGroup @name={{t "ledger-ui.s.default-accounts-payable-ap-account"}} @helpText={{t "ledger-ui.s.the-liability-account-that-tracks-money-your-org"}}>
                     <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                         <PowerSelect
                             @options={{this.apAccounts}}
@@ -139,7 +139,7 @@
 
             {{! ── Journal Entry Behaviour ────────────────────────────────────────────── }}
             <ContentPanel @title={{t "ledger-ui.s.journal-entry-behaviour"}} @open={{true}} @wrapperClass="bordered-classic">
-                <InputGroup @name="Auto-Post Journal Entries">
+                <InputGroup @name={{t "ledger-ui.s.auto-post-journal-entries"}}>
                     <Toggle
                         @isToggled={{this.auto_post_journal_entries}}
                         @label={{t "ledger-ui.s.automatically-post-journal-entries-to-the-genera"}}

@@ -17,14 +17,16 @@ export default class BillingTransactionsIndexController extends Controller {
     @tracked status = null;
     @tracked table = null;
 
-    columns = [
-        { label: this.intl.t('ledger-ui.s.date'), valuePath: 'created_at', width: '140px', sortable: true, component: 'table/cell/date' },
-        { label: this.intl.t('ledger-ui.s.reference-2'), valuePath: 'gateway_transaction_id', width: '200px' },
-        { label: this.intl.t('ledger-ui.s.gateway'), valuePath: 'gateway_code', width: '120px' },
-        { label: this.intl.t('ledger-ui.s.customer'), valuePath: 'customer_name', width: '160px' },
-        { label: this.intl.t('ledger-ui.s.amount'), valuePath: 'formatted_amount', width: '120px', sortable: true },
-        { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status', width: '100px', component: 'table/cell/status' },
-    ];
+    get columns() {
+        return [
+            { label: this.intl.t('ledger-ui.s.date'), valuePath: 'created_at', width: '140px', sortable: true, component: 'table/cell/date' },
+            { label: this.intl.t('ledger-ui.s.reference-2'), valuePath: 'gateway_transaction_id', width: '200px' },
+            { label: this.intl.t('ledger-ui.s.gateway'), valuePath: 'gateway_code', width: '120px' },
+            { label: this.intl.t('ledger-ui.s.customer'), valuePath: 'customer_name', width: '160px' },
+            { label: this.intl.t('ledger-ui.s.amount'), valuePath: 'formatted_amount', width: '120px', sortable: true },
+            { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status', width: '100px', component: 'table/cell/status' },
+        ];
+    }
 
     get actionButtons() {
         return [];

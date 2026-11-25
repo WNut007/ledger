@@ -9,7 +9,7 @@
     <div class="grid grid-cols-5 gap-3">
         {{#each @bucketSummary as |bucket|}}
             <div class="bg-gray-50 dark:bg-gray-700 rounded p-3 text-center">
-                <p class="text-xs text-gray-500 mb-1">{{bucket.label}}</p>
+                <p class="text-xs text-gray-500 mb-1">{{ledger-label bucket.label}}</p>
                 <p class="text-sm font-bold {{if (gt bucket.total 0) 'text-red-600' 'text-gray-400'}}">{{format-currency bucket.total @companyCurrency}}</p>
             </div>
         {{/each}}

@@ -238,7 +238,9 @@ class Invoice extends Model
      */
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'order_uuid');
+        // Include deleted orders: the invoice still belongs to them, and without this the list
+        // showed the raw order UUID instead of its tracking number.
+        return $this->belongsTo(Order::class, 'order_uuid')->withTrashed();
     }
 
     /**

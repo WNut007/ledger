@@ -13,7 +13,7 @@
     <Gateway::Form
         @resource={{this.gateway}}
         @initialDriverCode={{this.driver}}
-        @saveLabel="Create Gateway"
+        @saveLabel={{t "ledger-ui.s.create-gateway"}}
         @footerHelp="After saving, open diagnostics to test credentials, register webhooks, and create a test order."
         @isSaving={{this.save.isRunning}}
         @onCancel={{this.cancel}}

@@ -1,7 +1,7 @@
 <Modal::Default @modalIsOpened={{@modalIsOpened}} @options={{@options}} @confirm={{@onConfirm}} @decline={{@onDecline}}>
     <div class="modal-body-container">
         {{#if this.hasRefunds}}
-            <InputGroup @name="Customer Email" @helpText={{t "ledger-ui.s.used-when-sending-a-refund-uri-from-the-rows-bel"}}>
+            <InputGroup @name={{t "ledger-ui.s.customer-email"}} @helpText={{t "ledger-ui.s.used-when-sending-a-refund-uri-from-the-rows-bel"}}>
                 <Input @value={{this.email}} @type="email" class="form-input w-full" placeholder="customer@example.com" {{on "input" this.setEmail}} />
             </InputGroup>
 

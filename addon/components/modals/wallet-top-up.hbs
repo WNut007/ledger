@@ -14,12 +14,12 @@
             </div>
 
             {{! Amount input }}
-            <InputGroup @name="Amount" @helpText={{t "ledger-ui.s.amount-to-add-to-this-wallet"}}>
+            <InputGroup @name={{t "ledger-ui.s.amount"}} @helpText={{t "ledger-ui.s.amount-to-add-to-this-wallet"}}>
                 <MoneyInput class="w-full" @value={{@options.amount}} @currency={{wallet.currency}} @onChange={{@options.setAmount}} />
             </InputGroup>
 
             {{! Description input }}
-            <InputGroup @name="Description" @helpText={{t "ledger-ui.s.optional-note-for-this-transaction"}}>
+            <InputGroup @name={{t "ledger-ui.s.description"}} @helpText={{t "ledger-ui.s.optional-note-for-this-transaction"}}>
                 <Input @value={{@options.description}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.manual-top-up"}} {{on "input" @options.setDescription}} />
             </InputGroup>
         {{/let}}

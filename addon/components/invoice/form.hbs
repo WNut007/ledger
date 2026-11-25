@@ -5,7 +5,7 @@
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
             {{! Invoice Number — auto-generated on create; read-only on edit }}
-            <InputGroup @name="Invoice Number">
+            <InputGroup @name={{t "ledger-ui.s.invoice-number"}}>
                 <Input
                     @value={{@resource.number}}
                     @type="text"
@@ -16,7 +16,7 @@
             </InputGroup>
 
             {{! Status }}
-            <InputGroup @name="Status">
+            <InputGroup @name={{t "ledger-ui.s.status"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array "draft" "sent" "viewed" "partial" "paid" "partial_refund_pending" "refund_pending" "refunded" "overdue" "cancelled"}}
@@ -33,12 +33,12 @@
             </InputGroup>
 
             {{! Currency }}
-            <InputGroup @name="Currency">
+            <InputGroup @name={{t "ledger-ui.s.currency"}}>
                 <CurrencySelect @currency={{this.currency}} @onCurrencyChange={{this.onCurrencyChange}} @triggerClass="w-full form-select form-input" @disabled={{cannot-write @resource}} />
             </InputGroup>
 
             {{! Template }}
-            <InputGroup @name="Invoice Template">
+            <InputGroup @name={{t "ledger-ui.s.invoice-template"}}>
                 <ModelSelect
                     @modelName="template"
                     @selectedModel={{@resource.template}}
@@ -65,7 +65,7 @@
     <ContentPanel @title={{t "ledger-ui.s.customer"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 no-input-group-padding text-xs">
 
-            <InputGroup @name="Customer">
+            <InputGroup @name={{t "ledger-ui.s.customer"}}>
                 <ModelSelect
                     @modelName="customer"
                     @selectedModel={{@resource.customer}}
@@ -92,7 +92,7 @@
     <ContentPanel @title={{t "ledger-ui.s.dates"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2 no-input-group-padding text-xs">
 
-            <InputGroup @name="Invoice Date">
+            <InputGroup @name={{t "ledger-ui.s.invoice-date"}}>
                 <DatePicker
                     @value={{or (format-date-fns @resource.date "yyyy-MM-dd") null}}
                     @onChange={{fn (mut @resource.date)}}
@@ -102,7 +102,7 @@
                 />
             </InputGroup>
 
-            <InputGroup @name="Due Date">
+            <InputGroup @name={{t "ledger-ui.s.due-date"}}>
                 <DatePicker
                     @value={{or (format-date-fns @resource.due_date "yyyy-MM-dd") null}}
                     @onChange={{fn (mut @resource.due_date)}}
@@ -124,7 +124,7 @@
     <ContentPanel @title={{t "ledger-ui.s.notes-terms"}} @open={{true}} @wrapperClass="bordered-top">
         <div class="grid grid-cols-1 gap-2 no-input-group-padding text-xs">
 
-            <InputGroup @name="Notes">
+            <InputGroup @name={{t "ledger-ui.s.notes"}}>
                 <Textarea
                     @value={{@resource.notes}}
                     class="w-full form-input"
@@ -134,7 +134,7 @@
                 />
             </InputGroup>
 
-            <InputGroup @name="Terms">
+            <InputGroup @name={{t "ledger-ui.s.terms"}}>
                 <Textarea @value={{@resource.terms}} class="w-full form-input" rows="3" placeholder={{t "ledger-ui.s.payment-terms-e-g-net-30"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 

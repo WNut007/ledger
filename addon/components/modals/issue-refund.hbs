@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <InputGroup @name="Payment" @helpText={{t "ledger-ui.s.refunds-are-issued-against-the-original-successf"}}>
+            <InputGroup @name={{t "ledger-ui.s.payment"}} @helpText={{t "ledger-ui.s.refunds-are-issued-against-the-original-successf"}}>
                 <Select
                     class="w-full"
                     @value={{this.selectedGatewayTransactionId}}
@@ -57,7 +57,7 @@
                 </div>
             {{/if}}
 
-            <InputGroup @name="Refund Type" @helpText={{t "ledger-ui.s.use-full-for-the-selected-payment-s-remaining-re"}}>
+            <InputGroup @name={{t "ledger-ui.s.refund-type"}} @helpText={{t "ledger-ui.s.use-full-for-the-selected-payment-s-remaining-re"}}>
                 <Select
                     class="w-full"
                     @value={{this.refundMode}}
@@ -68,11 +68,11 @@
                 />
             </InputGroup>
 
-            <InputGroup @name="Amount" @helpText={{t "ledger-ui.s.the-amount-cannot-exceed-the-remaining-refundabl"}}>
+            <InputGroup @name={{t "ledger-ui.s.amount"}} @helpText={{t "ledger-ui.s.the-amount-cannot-exceed-the-remaining-refundabl"}}>
                 <MoneyInput class="w-full" @value={{this.amount}} @currency={{summary.currency}} @onChange={{this.setAmount}} disabled={{not this.isCustomRefund}} />
             </InputGroup>
 
-            <InputGroup @name="Reason" @helpText={{t "ledger-ui.s.optional-note-recorded-with-the-gateway-refund-a"}}>
+            <InputGroup @name={{t "ledger-ui.s.reason"}} @helpText={{t "ledger-ui.s.optional-note-recorded-with-the-gateway-refund-a"}}>
                 <Textarea @value={{this.reason}} class="w-full form-input" rows="3" placeholder={{t "ledger-ui.s.reason-for-refund"}} {{on "input" this.setReason}} />
             </InputGroup>
 

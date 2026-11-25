@@ -18,36 +18,38 @@ export default class InvoiceActionsService extends ResourceActionService {
         create: () => this.transitionTo('billing.invoices.index.new'),
     };
 
-    panel = {
-        create: (attributes = {}, options = {}) => {
-            const invoice = this.createNewInstance(attributes);
-            return this.resourceContextPanel.open({
-                content: 'invoice/form',
-                title: this.intl.t('common.create-a-new-resource', { resource: this.intl.t('resource.invoice')?.toLowerCase() }),
-                saveOptions: { callback: this.refresh },
-                resource: invoice,
-                ...options,
-            });
-        },
+    get panel() {
+        return {
+            create: (attributes = {}, options = {}) => {
+                const invoice = this.createNewInstance(attributes);
+                return this.resourceContextPanel.open({
+                    content: 'invoice/form',
+                    title: this.intl.t('common.create-a-new-resource', { resource: this.intl.t('resource.invoice')?.toLowerCase() }),
+                    saveOptions: { callback: this.refresh },
+                    resource: invoice,
+                    ...options,
+                });
+            },
 
-        edit: (invoice, options = {}) => {
-            return this.resourceContextPanel.open({
-                content: 'invoice/form',
-                title: this.intl.t('common.edit-resource-name', { resourceName: invoice.public_id }),
-                saveOptions: { callback: this.refresh },
-                resource: invoice,
-                ...options,
-            });
-        },
+            edit: (invoice, options = {}) => {
+                return this.resourceContextPanel.open({
+                    content: 'invoice/form',
+                    title: this.intl.t('common.edit-resource-name', { resourceName: invoice.public_id }),
+                    saveOptions: { callback: this.refresh },
+                    resource: invoice,
+                    ...options,
+                });
+            },
 
-        view: (invoice, options = {}) => {
-            return this.resourceContextPanel.open({
-                resource: invoice,
-                tabs: [{ label: this.intl.t('common.overview'), component: 'invoice/details' }],
-                ...options,
-            });
-        },
-    };
+            view: (invoice, options = {}) => {
+                return this.resourceContextPanel.open({
+                    resource: invoice,
+                    tabs: [{ label: this.intl.t('common.overview'), component: 'invoice/details' }],
+                    ...options,
+                });
+            },
+        };
+    }
 
     /**
      * Render the invoice using its assigned template and display the HTML

@@ -146,15 +146,15 @@
                         </div>
 
                         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 no-input-group-padding text-xs">
-                            <InputGroup @name="Gateway name">
+                            <InputGroup @name={{t "ledger-ui.s.gateway-name"}}>
                                 <Input @value={{@resource.name}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.e-g-gnu-taler-sandbox"}} disabled={{cannot-write @resource}} />
                             </InputGroup>
 
-                            <InputGroup @name="Code">
+                            <InputGroup @name={{t "ledger-ui.s.code"}}>
                                 <Input @value={{@resource.code}} @type="text" class="w-full form-input" placeholder="e.g. taler_sandbox" disabled={{cannot-write @resource}} />
                             </InputGroup>
 
-                            <InputGroup @name="Environment">
+                            <InputGroup @name={{t "ledger-ui.s.environment"}}>
                                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                                     <PowerSelect
                                         @options={{array "sandbox" "live"}}
@@ -170,7 +170,7 @@
                                 </div>
                             </InputGroup>
 
-                            <InputGroup @name="Status">
+                            <InputGroup @name={{t "ledger-ui.s.status"}}>
                                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                                     <PowerSelect
                                         @options={{array "active" "inactive"}}
@@ -186,11 +186,11 @@
                                 </div>
                             </InputGroup>
 
-                            <InputGroup @name="Return URL" @helpText={{t "ledger-ui.s.the-url-the-customer-is-redirected-to-after-paym"}} @wrapperClass="lg:col-span-2">
+                            <InputGroup @name={{t "ledger-ui.s.return-url"}} @helpText={{t "ledger-ui.s.the-url-the-customer-is-redirected-to-after-paym"}} @wrapperClass="lg:col-span-2">
                                 <Input @value={{@resource.return_url}} @type="url" class="w-full form-input" placeholder="https://yourapp.com/payment/success" disabled={{cannot-write @resource}} />
                             </InputGroup>
 
-                            <InputGroup @name="Webhook / Callback URL" @helpText={{t "ledger-ui.s.the-registered-provider-webhook-endpoint-for-thi"}} @wrapperClass="lg:col-span-2">
+                            <InputGroup @name={{t "ledger-ui.s.webhook-callback-url"}} @helpText={{t "ledger-ui.s.the-registered-provider-webhook-endpoint-for-thi"}} @wrapperClass="lg:col-span-2">
                                 <Input @value={{@resource.webhook_url}} @type="url" class="w-full form-input" placeholder="https://api.example.com/ledger/webhooks/taler" disabled={{cannot-write @resource}} />
                                 {{#if @resource.system_webhook_url}}
                                     <div class="mt-2 flex flex-col gap-2 rounded-md border border-gray-200 bg-gray-50 p-2 text-[11px] dark:border-gray-700 dark:bg-gray-900 sm:flex-row sm:items-center sm:justify-between">
@@ -200,7 +200,7 @@
                                 {{/if}}
                             </InputGroup>
 
-                            <InputGroup @name="Description" @wrapperClass="lg:col-span-2">
+                            <InputGroup @name={{t "ledger-ui.s.description"}} @wrapperClass="lg:col-span-2">
                                 <Textarea @value={{@resource.description}} class="w-full form-input" rows="2" placeholder={{t "ledger-ui.s.optional-operating-notes-for-this-gateway"}} disabled={{cannot-write @resource}} />
                             </InputGroup>
                         </div>

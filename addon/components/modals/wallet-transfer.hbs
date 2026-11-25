@@ -15,7 +15,7 @@
             </div>
 
             {{! Destination wallet selector }}
-            <InputGroup @name="To Wallet" @helpText={{t "ledger-ui.s.select-the-destination-wallet-to-transfer-funds"}}>
+            <InputGroup @name={{t "ledger-ui.s.to-wallet"}} @helpText={{t "ledger-ui.s.select-the-destination-wallet-to-transfer-funds"}}>
                 <ModelSelect
                     @modelName="ledger-wallet"
                     @selectedModel={{@options.toWallet}}
@@ -37,12 +37,12 @@
             </InputGroup>
 
             {{! Amount input }}
-            <InputGroup @name="Amount" @helpText={{t "ledger-ui.s.amount-to-transfer"}}>
+            <InputGroup @name={{t "ledger-ui.s.amount"}} @helpText={{t "ledger-ui.s.amount-to-transfer"}}>
                 <MoneyInput class="w-full" @value={{@options.amount}} @currency={{wallet.currency}} @onChange={{@options.setAmount}} />
             </InputGroup>
 
             {{! Description input }}
-            <InputGroup @name="Description" @helpText={{t "ledger-ui.s.optional-note-for-this-transfer"}}>
+            <InputGroup @name={{t "ledger-ui.s.description"}} @helpText={{t "ledger-ui.s.optional-note-for-this-transfer"}}>
                 <Input @value={{@options.description}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.internal-transfer"}} {{on "input" @options.setDescription}} />
             </InputGroup>
         {{/let}}

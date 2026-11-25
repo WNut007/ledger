@@ -13,16 +13,18 @@ export default class WalletActionsService extends ResourceActionService {
         view: (wallet) => this.transitionTo('payments.wallets.index.details', wallet),
     };
 
-    panel = {
-        view: (wallet, options = {}) => {
-            return this.resourceContextPanel.open({
-                wallet,
-                tabs: [
-                    { label: this.intl.t('common.overview'), component: 'wallet/details' },
-                    { label: this.intl.t('common.transactions'), component: 'wallet/transactions' },
-                ],
-                ...options,
-            });
-        },
-    };
+    get panel() {
+        return {
+            view: (wallet, options = {}) => {
+                return this.resourceContextPanel.open({
+                    wallet,
+                    tabs: [
+                        { label: this.intl.t('common.overview'), component: 'wallet/details' },
+                        { label: this.intl.t('common.transactions'), component: 'wallet/transactions' },
+                    ],
+                    ...options,
+                });
+            },
+        };
+    }
 }

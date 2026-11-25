@@ -19,12 +19,12 @@
             </div>
 
             {{! Amount }}
-            <InputGroup @name="Amount" @helpText={{t "ledger-ui.s.amount-received-defaults-to-the-full-outstanding"}}>
+            <InputGroup @name={{t "ledger-ui.s.amount"}} @helpText={{t "ledger-ui.s.amount-received-defaults-to-the-full-outstanding"}}>
                 <MoneyInput class="w-full" @value={{@options.amount}} @currency={{invoice.currency}} @onChange={{@options.setAmount}} />
             </InputGroup>
 
             {{! Payment method }}
-            <InputGroup @name="Payment Method" @helpText={{t "ledger-ui.s.how-the-payment-was-received"}}>
+            <InputGroup @name={{t "ledger-ui.s.payment-method"}} @helpText={{t "ledger-ui.s.how-the-payment-was-received"}}>
                 <Select
                     class="w-full"
                     @value={{@options.paymentMethod}}
@@ -37,7 +37,7 @@
             </InputGroup>
 
             {{! Reference / note }}
-            <InputGroup @name="Reference" @helpText={{t "ledger-ui.s.optional-reference-number-or-note-for-this-payme"}}>
+            <InputGroup @name={{t "ledger-ui.s.reference-2"}} @helpText={{t "ledger-ui.s.optional-reference-number-or-note-for-this-payme"}}>
                 <Input @value={{@options.reference}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.e-g-bank-transfer-ref-cheque-number"}} {{on "input" @options.setReference}} />
             </InputGroup>
         {{/let}}

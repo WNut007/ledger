@@ -15,12 +15,14 @@ export default class ReportsIndexController extends Controller {
     @tracked dateTo = null;
     @tracked asOf = null;
 
-    reportTabs = [
-        { id: 'balance-sheet', label: this.intl.t('ledger-ui.s.balance-sheet') },
-        { id: 'income-statement', label: this.intl.t('ledger-ui.s.income-statement') },
-        { id: 'cash-flow', label: this.intl.t('ledger-ui.s.cash-flow') },
-        { id: 'ar-aging', label: this.intl.t('ledger-ui.s.ar-aging') },
-    ];
+    get reportTabs() {
+        return [
+            { id: 'balance-sheet', label: this.intl.t('ledger-ui.s.balance-sheet') },
+            { id: 'income-statement', label: this.intl.t('ledger-ui.s.income-statement') },
+            { id: 'cash-flow', label: this.intl.t('ledger-ui.s.cash-flow') },
+            { id: 'ar-aging', label: this.intl.t('ledger-ui.s.ar-aging') },
+        ];
+    }
 
     @task *loadReport() {
         this.isLoading = true;

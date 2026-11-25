@@ -15,7 +15,7 @@
 
     <Gateway::Form
         @resource={{@model}}
-        @saveLabel="Save Gateway"
+        @saveLabel={{t "ledger-ui.s.save-gateway"}}
         @footerHelp="Changes affect future invoice checkout, refunds, webhook routing, and diagnostics."
         @isSaving={{this.save.isRunning}}
         @onCancel={{this.cancel}}

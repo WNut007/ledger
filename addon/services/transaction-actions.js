@@ -13,13 +13,15 @@ export default class TransactionActionsService extends ResourceActionService {
         view: (transaction) => this.transitionTo('payments.transactions.index.details', transaction),
     };
 
-    panel = {
-        view: (transaction, options = {}) => {
-            return this.resourceContextPanel.open({
-                transaction,
-                tabs: [{ label: this.intl.t('common.overview'), component: 'transaction/details' }],
-                ...options,
-            });
-        },
-    };
+    get panel() {
+        return {
+            view: (transaction, options = {}) => {
+                return this.resourceContextPanel.open({
+                    transaction,
+                    tabs: [{ label: this.intl.t('common.overview'), component: 'transaction/details' }],
+                    ...options,
+                });
+            },
+        };
+    }
 }

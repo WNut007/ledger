@@ -29,16 +29,18 @@ export default class SettingsInvoiceController extends Controller {
     // ── Static options ────────────────────────────────────────────────────────
     currencies = getCurrency();
 
-    paymentTermsOptions = [
-        { label: this.intl.t('ledger-ui.s.due-on-receipt'), value: 0 },
-        { label: this.intl.t('ledger-ui.s.net-7'), value: 7 },
-        { label: this.intl.t('ledger-ui.s.net-14'), value: 14 },
-        { label: this.intl.t('ledger-ui.s.net-15'), value: 15 },
-        { label: this.intl.t('ledger-ui.s.net-30'), value: 30 },
-        { label: this.intl.t('ledger-ui.s.net-45'), value: 45 },
-        { label: this.intl.t('ledger-ui.s.net-60'), value: 60 },
-        { label: this.intl.t('ledger-ui.s.net-90'), value: 90 },
-    ];
+    get paymentTermsOptions() {
+        return [
+            { label: this.intl.t('ledger-ui.s.due-on-receipt'), value: 0 },
+            { label: this.intl.t('ledger-ui.s.net-7'), value: 7 },
+            { label: this.intl.t('ledger-ui.s.net-14'), value: 14 },
+            { label: this.intl.t('ledger-ui.s.net-15'), value: 15 },
+            { label: this.intl.t('ledger-ui.s.net-30'), value: 30 },
+            { label: this.intl.t('ledger-ui.s.net-45'), value: 45 },
+            { label: this.intl.t('ledger-ui.s.net-60'), value: 60 },
+            { label: this.intl.t('ledger-ui.s.net-90'), value: 90 },
+        ];
+    }
 
     constructor() {
         super(...arguments);

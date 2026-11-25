@@ -17,7 +17,7 @@
                 {{#each this.statusRows as |row|}}
                     <div class="ledger-animated-row ledger-status-row">
                         <div class="flex items-center justify-between gap-3 text-xs">
-                            <span class="font-semibold capitalize text-gray-700 dark:text-gray-200">{{row.status}}</span>
+                            <span class="font-semibold capitalize text-gray-700 dark:text-gray-200">{{ledger-label row.status}}</span>
                             <span class="text-gray-500 dark:text-gray-400">{{row.count}}</span>
                         </div>
                         <div class="ledger-progress-track">

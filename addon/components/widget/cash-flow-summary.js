@@ -1,3 +1,4 @@
+import ledgerLabel from '../../utils/ledger-label';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
@@ -23,7 +24,7 @@ export default class WidgetCashFlowSummaryComponent extends Component {
     }
 
     get labels() {
-        return ['Operating', 'Financing', 'Investing'];
+        return ['Operating', 'Financing', 'Investing'].map((label) => ledgerLabel(this.intl, label));
     }
 
     get datasets() {

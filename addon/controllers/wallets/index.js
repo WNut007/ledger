@@ -20,13 +20,15 @@ export default class WalletsIndexController extends Controller {
     @tracked type = null;
     @tracked table = null;
 
-    columns = [
-        { label: this.intl.t('ledger-ui.s.name'), valuePath: 'name', width: '200px', sortable: true },
-        { label: this.intl.t('ledger-ui.s.type'), valuePath: 'type_label', width: '100px' },
-        { label: this.intl.t('ledger-ui.s.currency'), valuePath: 'currency', width: '80px' },
-        { label: this.intl.t('ledger-ui.s.balance-2'), valuePath: 'formatted_balance', width: '140px', sortable: true },
-        { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status_label', width: '100px', component: 'table/cell/status' },
-    ];
+    get columns() {
+        return [
+            { label: this.intl.t('ledger-ui.s.name'), valuePath: 'name', width: '200px', sortable: true },
+            { label: this.intl.t('ledger-ui.s.type'), valuePath: 'type_label', width: '100px' },
+            { label: this.intl.t('ledger-ui.s.currency'), valuePath: 'currency', width: '80px' },
+            { label: this.intl.t('ledger-ui.s.balance-2'), valuePath: 'formatted_balance', width: '140px', sortable: true },
+            { label: this.intl.t('ledger-ui.s.status'), valuePath: 'status_label', width: '100px', component: 'table/cell/status' },
+        ];
+    }
 
     get actionButtons() {
         return [];

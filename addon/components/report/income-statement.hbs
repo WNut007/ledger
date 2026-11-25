@@ -4,7 +4,7 @@
         {{#if @data.period}}
             <span class="text-sm text-gray-500">{{@data.period}}</span>
         {{/if}}
-        <Badge @color={{if @data.profitable "green" "red"}}>{{if @data.profitable "Profitable" "Net Loss"}}</Badge>
+        <Badge @color={{if @data.profitable "green" "red"}}>{{if @data.profitable (t "ledger-ui.s.profitable") (t "ledger-ui.s.net-loss")}}</Badge>
     </div>
 
     {{! Revenue }}

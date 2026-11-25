@@ -8,7 +8,7 @@
                 {{t "ledger-ui.s.core-information"}}
             </div>
 
-            <InputGroup @name="Type">
+            <InputGroup @name={{t "ledger-ui.s.type"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array "wallet_deposit" "wallet_withdrawal" "wallet_transfer" "gateway_charge" "gateway_refund" "gateway_payout" "adjustment" "earning" "fee"}}
@@ -24,7 +24,7 @@
                 </div>
             </InputGroup>
 
-            <InputGroup @name="Direction">
+            <InputGroup @name={{t "ledger-ui.s.direction"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array "credit" "debit"}}
@@ -40,7 +40,7 @@
                 </div>
             </InputGroup>
 
-            <InputGroup @name="Status">
+            <InputGroup @name={{t "ledger-ui.s.status"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array "pending" "succeeded" "failed" "refunded" "voided" "reversed" "expired"}}
@@ -56,7 +56,7 @@
                 </div>
             </InputGroup>
 
-            <InputGroup @name="Currency">
+            <InputGroup @name={{t "ledger-ui.s.currency"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array
@@ -113,19 +113,19 @@
                 {{t "ledger-ui.s.amounts"}}
             </div>
 
-            <InputGroup @name="Amount">
+            <InputGroup @name={{t "ledger-ui.s.amount"}}>
                 <Input @value={{@resource.amount}} @type="number" class="w-full form-input" placeholder="0.00" disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Fee Amount">
+            <InputGroup @name={{t "ledger-ui.s.fee-amount"}}>
                 <Input @value={{@resource.fee_amount}} @type="number" class="w-full form-input" placeholder="0.00" disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Tax Amount">
+            <InputGroup @name={{t "ledger-ui.s.tax-amount"}}>
                 <Input @value={{@resource.tax_amount}} @type="number" class="w-full form-input" placeholder="0.00" disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Net Amount">
+            <InputGroup @name={{t "ledger-ui.s.net-amount"}}>
                 <Input @value={{@resource.net_amount}} @type="number" class="w-full form-input" placeholder="0.00" disabled={{cannot-write @resource}} />
             </InputGroup>
 
@@ -134,15 +134,15 @@
                 {{t "ledger-ui.s.gateway-payment"}}
             </div>
 
-            <InputGroup @name="Gateway">
+            <InputGroup @name={{t "ledger-ui.s.gateway"}}>
                 <Input @value={{@resource.gateway}} @type="text" class="w-full form-input" placeholder="e.g. stripe" disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Gateway Transaction ID">
+            <InputGroup @name={{t "ledger-ui.s.gateway-transaction-id"}}>
                 <Input @value={{@resource.gateway_transaction_id}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.gateway-transaction-reference"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Payment Method">
+            <InputGroup @name={{t "ledger-ui.s.payment-method"}}>
                 <div class="fleetbase-model-select fleetbase-power-select ember-model-select">
                     <PowerSelect
                         @options={{array "card" "bank_transfer" "wallet" "cash"}}
@@ -158,7 +158,7 @@
                 </div>
             </InputGroup>
 
-            <InputGroup @name="Reference">
+            <InputGroup @name={{t "ledger-ui.s.reference-2"}}>
                 <Input @value={{@resource.reference}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.external-reference"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
@@ -167,11 +167,11 @@
                 {{t "ledger-ui.s.description-notes"}}
             </div>
 
-            <InputGroup @name="Description" @wrapperClass="col-span-2">
+            <InputGroup @name={{t "ledger-ui.s.description"}} @wrapperClass="col-span-2">
                 <Input @value={{@resource.description}} @type="text" class="w-full form-input" placeholder={{t "ledger-ui.s.short-description-of-this-transaction"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 
-            <InputGroup @name="Notes" @wrapperClass="col-span-2">
+            <InputGroup @name={{t "ledger-ui.s.notes"}} @wrapperClass="col-span-2">
                 <Textarea @value={{@resource.notes}} class="w-full form-input" rows="3" placeholder={{t "ledger-ui.s.internal-notes"}} disabled={{cannot-write @resource}} />
             </InputGroup>
 

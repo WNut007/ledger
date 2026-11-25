@@ -1,3 +1,4 @@
+import ledgerLabel from '../../utils/ledger-label';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
@@ -5,6 +6,7 @@ import { task } from 'ember-concurrency';
 import getCurrency from '@fleetbase/ember-ui/utils/get-currency';
 
 export default class WidgetRevenueTrendComponent extends Component {
+    @service intl;
     @service fetch;
     @service ledgerDashboard;
 
@@ -47,6 +49,7 @@ export default class WidgetRevenueTrendComponent extends Component {
         return (
             this.data?.datasets?.map((dataset) => ({
                 ...dataset,
+                label: ledgerLabel(this.intl, dataset.label),
                 data: dataset.data?.map((value) => this.normalizeMoneyValue(value)) ?? [],
             })) ?? []
         );
@@ -108,7 +111,7 @@ export default class WidgetRevenueTrendComponent extends Component {
                     mode: 'index',
                     intersect: false,
                     callbacks: {
-                        label: (context) => `${context.dataset?.label ?? 'Value'}: ${this.formatChartCurrency(context.parsed?.y ?? context.raw)}`,
+                        label: (context) => `${context.dataset?.label ?? ''}: ${this.formatChartCurrency(context.parsed?.y ?? context.raw)}`,
                     },
                 },
             },

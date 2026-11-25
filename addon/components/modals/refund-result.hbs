@@ -5,7 +5,7 @@
             <div class="mt-1">{{this.statusMessage}}</div>
         </div>
 
-        <InputGroup @name="Customer Refund Link" @helpText={{t "ledger-ui.s.send-this-fleetbase-link-to-the-customer-it-open"}}>
+        <InputGroup @name={{t "ledger-ui.s.customer-refund-link"}} @helpText={{t "ledger-ui.s.send-this-fleetbase-link-to-the-customer-it-open"}}>
             <div class="flex min-w-0 items-center justify-between gap-3 rounded-md border border-gray-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-gray-800">
                 <ClickToCopy @value={{@options.refundUrl}} class="min-w-0 flex-1">
                     <a href={{@options.refundUrl}} target="_blank" rel="noopener noreferrer" class="block truncate font-mono text-xs text-blue-600 hover:underline dark:text-blue-400">
@@ -19,7 +19,7 @@
         </InputGroup>
 
         {{#if @options.talerRefundUri}}
-            <InputGroup @name="Wallet URI" @helpText={{t "ledger-ui.s.advanced-fallback-for-copying-directly-into-a-gn"}}>
+            <InputGroup @name={{t "ledger-ui.s.wallet-uri"}} @helpText={{t "ledger-ui.s.advanced-fallback-for-copying-directly-into-a-gn"}}>
                 <div class="flex min-w-0 items-center justify-between gap-3 rounded-md border border-gray-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-gray-800">
                     <ClickToCopy @value={{@options.talerRefundUri}} class="min-w-0 flex-1">
                         <span class="block truncate font-mono text-xs text-gray-600 dark:text-gray-300">{{@options.talerRefundUri}}</span>
@@ -31,7 +31,7 @@
             </InputGroup>
         {{/if}}
 
-        <InputGroup @name="Customer Email" @helpText={{t "ledger-ui.s.defaults-to-the-invoice-customer-email-when-avai"}}>
+        <InputGroup @name={{t "ledger-ui.s.customer-email"}} @helpText={{t "ledger-ui.s.defaults-to-the-invoice-customer-email-when-avai"}}>
             <div class="flex items-center gap-2">
                 <Input @value={{this.email}} @type="email" class="form-input w-full" placeholder="customer@example.com" {{on "input" this.setEmail}} />
                 <Button class="whitespace-nowrap" @icon="paper-plane" @text={{t "ledger-ui.s.send-email"}} @size="sm" @type="default" @onClick={{this.sendRefundUri}} />
